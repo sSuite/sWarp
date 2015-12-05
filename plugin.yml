@@ -1,0 +1,8 @@
+name: sWarp
+author: Smiley43210
+main: com.github.sSuite.sWarp.Main
+version: 1.0
+commands:
+  swarp:
+    description: Main sWarp command.
+    usage: /<command>
