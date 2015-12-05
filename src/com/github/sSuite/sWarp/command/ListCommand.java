@@ -16,11 +16,20 @@ public class ListCommand extends AbstractCommand {
 		super(plugin);
 	}
 
+	public ListCommand(Main plugin, String permissionNode) {
+		super(plugin, permissionNode);
+	}
+
 	@Override
 	public boolean execute(CommandSender sender, String[] args) {
 		if (args.length > 1) {
 			return false;
 		} else {
+			if (!hasPermission(sender)) {
+				sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do that!");
+				return true;
+			}
+
 			int page = 1;
 			if (args.length == 1) {
 				try {

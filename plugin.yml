@@ -6,3 +6,31 @@ commands:
   swarp:
     description: Main sWarp command.
     usage: /<command>
+permissions:
+  swarp.*:
+    description: Allows player access to all sWarp commands.
+    children:
+      swarp.reload: true
+      swarp.list: true
+      swarp.create: true
+      swarp.remove: true
+      swarp.go: true
+      swarp.point: true
+  swarp.reload:
+    description: Allows player to reload the configuration file.
+    default: op
+  swarp.list:
+    description: Allows player to list the warps.
+    default: op
+  swarp.create:
+    description: Allows player to create warps.
+    default: op
+  swarp.remove:
+    description: Allows player to remove warps.
+    default: op
+  swarp.go:
+    description: Allows player to teleport to warps.
+    default: op
+  swarp.point:
+    description: Allows player to use the compass to point to warps.
+    default: op

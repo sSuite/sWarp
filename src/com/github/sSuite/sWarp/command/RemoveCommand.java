@@ -13,13 +13,23 @@ public class RemoveCommand extends AbstractCommand {
 		super(plugin);
 	}
 
+	public RemoveCommand(Main plugin, String permissionNode) {
+		super(plugin, permissionNode);
+	}
+
 	@Override
 	public boolean execute(CommandSender sender, String[] args) {
 		if (args.length != 1 && args.length != 4) {
 			return false;
 		} else {
+			if (!hasPermission(sender)) {
+				sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do that!");
+				return true;
+			}
+
 			if (!StringUtility.yamlSafe(args[0])) {
-				sender.sendMessage(ChatColor.RED + "The warp name must only consist of alphanumeric characters!");
+				sender.sendMessage(ChatColor.RED
+						+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
 				return true;
 			}
 

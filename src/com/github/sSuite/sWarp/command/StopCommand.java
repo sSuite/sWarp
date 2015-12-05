@@ -11,6 +11,10 @@ public class StopCommand extends AbstractCommand {
 		super(plugin);
 	}
 
+	public StopCommand(Main plugin, String permissionNode) {
+		super(plugin, permissionNode);
+	}
+
 	@Override
 	public boolean execute(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -20,6 +24,11 @@ public class StopCommand extends AbstractCommand {
 		if (args.length != 0) {
 			return false;
 		} else {
+			if (!hasPermission(sender)) {
+				sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do that!");
+				return true;
+			}
+
 			((Player) sender).setCompassTarget(((Player) sender).getWorld().getSpawnLocation());
 			sender.sendMessage(ChatColor.GREEN + "Restored compass location!");
 		}

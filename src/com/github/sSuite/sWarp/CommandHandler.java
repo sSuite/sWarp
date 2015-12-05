@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import com.github.sSuite.sLib.utility.CommandHelpUtility;
 import com.github.sSuite.sWarp.command.AbstractCommand;
 import com.github.sSuite.sWarp.command.CreateCommand;
+import com.github.sSuite.sWarp.command.GoCommand;
 import com.github.sSuite.sWarp.command.ListCommand;
 import com.github.sSuite.sWarp.command.PointCommand;
 import com.github.sSuite.sWarp.command.ReloadCommand;
@@ -35,22 +36,25 @@ public class CommandHandler implements CommandExecutor {
 		AbstractCommand commandClass;
 		switch (args[0].toLowerCase()) {
 			case "reload":
-				commandClass = new ReloadCommand(plugin);
+				commandClass = new ReloadCommand(plugin, "reload");
 				break;
 			case "list":
-				commandClass = new ListCommand(plugin);
+				commandClass = new ListCommand(plugin, "list");
 				break;
 			case "create":
-				commandClass = new CreateCommand(plugin);
+				commandClass = new CreateCommand(plugin, "create");
 				break;
 			case "remove":
-				commandClass = new RemoveCommand(plugin);
+				commandClass = new RemoveCommand(plugin, "remove");
+				break;
+			case "go":
+				commandClass = new GoCommand(plugin, "go");
 				break;
 			case "point":
-				commandClass = new PointCommand(plugin);
+				commandClass = new PointCommand(plugin, "point");
 				break;
 			case "stop":
-				commandClass = new StopCommand(plugin);
+				commandClass = new StopCommand(plugin, "point");
 				break;
 			default:
 				showHelp(sender);
@@ -70,7 +74,8 @@ public class CommandHandler implements CommandExecutor {
 		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name>", "Creates a warp"));
 		sender.sendMessage(
 				CommandHelpUtility.createCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp remove <name>", "Removes a warp"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp remove <name>", "Removes the warp"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp go <name>", "Teleports to the warp"));
 		sender.sendMessage(
 				CommandHelpUtility.createCommand("/swarp point <name>", "Sets your compass to point to the warp"));
 		sender.sendMessage(CommandHelpUtility.createCommand("/swarp stop", "Makes your compass point to the spawn"));

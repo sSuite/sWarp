@@ -2,13 +2,16 @@ package com.github.sSuite.sWarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import com.github.sSuite.sWarp.Main;
 
 public class ReloadCommand extends AbstractCommand {
 
 	public ReloadCommand(Main plugin) {
 		super(plugin);
+	}
+
+	public ReloadCommand(Main plugin, String permissionNode) {
+		super(plugin, permissionNode);
 	}
 
 	@Override
@@ -27,13 +30,6 @@ public class ReloadCommand extends AbstractCommand {
 				return true;
 			}
 			sender.sendMessage(ChatColor.GREEN + "Plugin configuration reloaded!");
-		}
-		return true;
-	}
-
-	private boolean hasPermission(CommandSender sender) {
-		if (sender instanceof Player) {
-			return sender.isOp();
 		}
 		return true;
 	}

@@ -10,20 +10,20 @@ import org.bukkit.entity.Player;
 import com.github.sSuite.sLib.utility.StringUtility;
 import com.github.sSuite.sWarp.Main;
 
-public class PointCommand extends AbstractCommand {
+public class GoCommand extends AbstractCommand {
 
-	public PointCommand(Main plugin) {
+	public GoCommand(Main plugin) {
 		super(plugin);
 	}
 
-	public PointCommand(Main plugin, String permissionNode) {
+	public GoCommand(Main plugin, String permissionNode) {
 		super(plugin, permissionNode);
 	}
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
-			getPlugin().getLogger().severe("Only players can use /swarp set!");
+			getPlugin().getLogger().severe("Only players can use /swarp go!");
 		}
 
 		if (args.length != 1) {
@@ -57,9 +57,9 @@ public class PointCommand extends AbstractCommand {
 
 			Location location = new Location(world, warpSection.getDouble("x"), warpSection.getDouble("y"),
 					warpSection.getDouble("z"));
-			((Player) sender).setCompassTarget(location);
-			sender.sendMessage(ChatColor.GREEN + "Set compass to point to warp " + ChatColor.YELLOW + args[0]
-					+ ChatColor.GREEN + "!");
+			((Player) sender).teleport(location);
+			sender.sendMessage(
+					ChatColor.GREEN + "Teleported to warp " + ChatColor.YELLOW + args[0] + ChatColor.GREEN + "!");
 		}
 		return true;
 	}
