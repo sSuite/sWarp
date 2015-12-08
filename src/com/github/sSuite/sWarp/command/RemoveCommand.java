@@ -2,10 +2,9 @@ package com.github.sSuite.sWarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.ConfigurationSection;
-import com.github.sSuite.sLib.utility.StringUtility;
 import com.github.sSuite.sWarp.Main;
+import com.github.sSuite.sWarp.WarpHandler;
+import com.github.sSuite.sWarp.exception.NoSuchWarpException;
 
 public class RemoveCommand extends AbstractCommand {
 
@@ -19,7 +18,7 @@ public class RemoveCommand extends AbstractCommand {
 
 	@Override
 	public boolean execute(CommandSender sender, String[] args) {
-		if (args.length != 1 && args.length != 4) {
+		if (args.length != 1) {
 			return false;
 		} else {
 			if (!hasPermission(sender)) {
@@ -27,25 +26,18 @@ public class RemoveCommand extends AbstractCommand {
 				return true;
 			}
 
-			if (!StringUtility.yamlSafe(args[0])) {
-				sender.sendMessage(ChatColor.RED
-						+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
-				return true;
-			}
+			WarpHandler warpHandler = getPlugin().getWarpHandler();
 
-			Configuration configuration = getPlugin().getDataHandler().getConfig();
-			ConfigurationSection warpSection = configuration.getConfigurationSection(args[0]);
-			if (warpSection == null) {
+			try {
+				warpHandler.removeWarp(args[0]);
+			} catch (NoSuchWarpException e) {
 				sender.sendMessage(
 						ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
 				return true;
-			} else {
-				configuration.set(args[0], null);
 			}
 
-			getPlugin().getDataHandler().save();
-
-			sender.sendMessage(ChatColor.AQUA + "Removed warp \"" + ChatColor.WHITE + args[0] + ChatColor.AQUA + "\"!");
+			sender.sendMessage(
+					ChatColor.GREEN + "Removed warp \"" + ChatColor.AQUA + args[0] + ChatColor.GREEN + "\"!");
 		}
 		return true;
 	}

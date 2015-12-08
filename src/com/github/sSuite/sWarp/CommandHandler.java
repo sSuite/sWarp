@@ -3,6 +3,7 @@ package com.github.sSuite.sWarp;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import com.github.sSuite.sLib.utility.CommandHelpUtility;
 import com.github.sSuite.sWarp.command.AbstractCommand;
 import com.github.sSuite.sWarp.command.CreateCommand;
@@ -69,16 +70,24 @@ public class CommandHandler implements CommandExecutor {
 
 	private void showHelp(CommandSender sender) {
 		sender.sendMessage(CommandHelpUtility.createHeader("sWarp", 22));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp reload", "Reloads the configuration files"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp list [page]", "Lists all warps"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name>", "Creates a warp"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp reload", "Reloads the configuration files",
+				sender instanceof Player ? sender.hasPermission("swarp.reload") : true));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp list [page]", "Lists all warps",
+				sender instanceof Player ? sender.hasPermission("swarp.list") : true));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name>", "Creates a warp",
+				sender instanceof Player ? sender.hasPermission("swarp.create") : true));
 		sender.sendMessage(
-				CommandHelpUtility.createCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp remove <name>", "Removes the warp"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp go <name>", "Teleports to the warp"));
+				CommandHelpUtility.createCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location",
+						sender instanceof Player ? sender.hasPermission("swarp.create") : true));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp remove <name>", "Removes the warp",
+				sender instanceof Player ? sender.hasPermission("swarp.remove") : true));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp go <name>", "Teleports to the warp",
+				sender instanceof Player ? sender.hasPermission("swarp.go") : true));
 		sender.sendMessage(
-				CommandHelpUtility.createCommand("/swarp point <name>", "Sets your compass to point to the warp"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp stop", "Makes your compass point to the spawn"));
+				CommandHelpUtility.createCommand("/swarp point <name>", "Sets your compass to point to the warp",
+						sender instanceof Player ? sender.hasPermission("swarp.point") : true));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp stop", "Makes your compass point to the spawn",
+				sender instanceof Player ? sender.hasPermission("swarp.point") : true));
 	}
 
 }

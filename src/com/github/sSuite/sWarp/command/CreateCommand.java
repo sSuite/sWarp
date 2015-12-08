@@ -3,11 +3,11 @@ package com.github.sSuite.sWarp.command;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sLib.utility.StringUtility;
 import com.github.sSuite.sWarp.Main;
+import com.github.sSuite.sWarp.WarpHandler;
+import com.github.sSuite.sWarp.exception.UnsafeWarpNameException;
+import com.github.sSuite.sWarp.exception.WarpExistsException;
 
 public class CreateCommand extends AbstractCommand {
 
@@ -33,25 +33,13 @@ public class CreateCommand extends AbstractCommand {
 				return true;
 			}
 
-			if (!StringUtility.yamlSafe(args[0])) {
-				sender.sendMessage(ChatColor.RED
-						+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
-				return true;
-			}
-
 			Location location = ((Player) sender).getLocation();
-			String world = location.getWorld().getName();
-			double x, y, z;
 
-			if (args.length == 1) {
-				x = location.getX();
-				y = location.getY();
-				z = location.getZ();
-			} else {
+			if (args.length == 4) {
 				try {
-					x = Double.parseDouble(args[1]);
-					y = Double.parseDouble(args[2]);
-					z = Double.parseDouble(args[3]);
+					location.setX(Double.parseDouble(args[1]));
+					location.setY(Double.parseDouble(args[2]));
+					location.setZ(Double.parseDouble(args[3]));
 				} catch (NumberFormatException e) {
 					sender.sendMessage(ChatColor.RED + "The coordinates " + args[1] + ", " + args[2] + ", " + args[3]
 							+ " are not valid coordinates!");
@@ -59,25 +47,22 @@ public class CreateCommand extends AbstractCommand {
 				}
 			}
 
-			Configuration configuration = getPlugin().getDataHandler().getConfig();
-			ConfigurationSection warpSection = configuration.getConfigurationSection(args[0]);
-			if (warpSection == null) {
-				warpSection = configuration.createSection(args[0]);
-			} else {
+			WarpHandler warpHandler = getPlugin().getWarpHandler();
+
+			try {
+				warpHandler.createWarp(args[0], location, (Player) sender);
+			} catch (UnsafeWarpNameException e) {
+				sender.sendMessage(ChatColor.RED
+						+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
+				return true;
+			} catch (WarpExistsException e) {
 				sender.sendMessage(
 						ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " already exists!");
 				return true;
 			}
 
-			warpSection.set("world", world);
-			warpSection.set("x", x);
-			warpSection.set("y", y);
-			warpSection.set("z", z);
-
-			getPlugin().getDataHandler().save();
-
-			sender.sendMessage(ChatColor.AQUA + "Created warp \"" + ChatColor.WHITE + args[0] + ChatColor.AQUA
-					+ "\" in world " + ChatColor.WHITE + world + ChatColor.AQUA + "!");
+			sender.sendMessage(ChatColor.GREEN + "Created warp \"" + ChatColor.AQUA + args[0] + ChatColor.GREEN
+					+ "\" in world " + ChatColor.GOLD + location.getWorld().getName() + ChatColor.GREEN + "!");
 		}
 		return true;
 	}

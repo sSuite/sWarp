@@ -2,6 +2,7 @@ name: sWarp
 author: Smiley43210
 main: com.github.sSuite.sWarp.Main
 version: 1.0
+depend: [sLib]
 commands:
   swarp:
     description: Main sWarp command.
@@ -14,7 +15,9 @@ permissions:
       swarp.list: true
       swarp.create: true
       swarp.remove: true
+      swarp.remove.others: true
       swarp.go: true
+      swarp.go.crossworld: true
       swarp.point: true
   swarp.reload:
     description: Allows player to reload the configuration file.
@@ -26,11 +29,23 @@ permissions:
     description: Allows player to create warps.
     default: op
   swarp.remove:
-    description: Allows player to remove warps.
+    description: Allows player to remove own warps.
+    default: op
+  swarp.remove.all:
+    description: Allows player to remove warps other players created.
     default: op
   swarp.go:
-    description: Allows player to teleport to warps.
+    description: Allows player to teleport to own warps in the world that player is currently in.
+    default: op
+  swarp.go.all:
+    description: Allows player to teleport to warps other players created while uninvited.
+    default: op
+  swarp.go.crossworld:
+    description: Allows player to teleport to warps in any world.
     default: op
   swarp.point:
-    description: Allows player to use the compass to point to warps.
+    description: Allows player to use the compass to point to own warps.
+    default: op
+  swarp.point.all:
+    description: Allows player to use the compass to point to warps other players created while uninvited.
     default: op

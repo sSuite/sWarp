@@ -1,14 +1,12 @@
 package com.github.sSuite.sWarp.command;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sLib.utility.StringUtility;
 import com.github.sSuite.sWarp.Main;
+import com.github.sSuite.sWarp.WarpHandler;
+import com.github.sSuite.sWarp.exception.NoSuchWarpException;
+import com.github.sSuite.sWarp.exception.WorldMismatchException;
 
 public class GoCommand extends AbstractCommand {
 
@@ -34,32 +32,22 @@ public class GoCommand extends AbstractCommand {
 				return true;
 			}
 
-			if (!StringUtility.yamlSafe(args[0])) {
-				sender.sendMessage(ChatColor.RED
-						+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
-				return true;
-			}
+			WarpHandler warpHandler = getPlugin().getWarpHandler();
 
-			Configuration configuration = getPlugin().getDataHandler().getConfig();
-			ConfigurationSection warpSection = configuration.getConfigurationSection(args[0]);
-			if (warpSection == null) {
+			try {
+				warpHandler.getWarpByName(args[0]).teleportPlayer((Player) sender);
+			} catch (WorldMismatchException e) {
+				sender.sendMessage(ChatColor.RED + "You must be in world " + ChatColor.RESET + e.getMessage()
+						+ ChatColor.RED + " to use this warp!");
+				return true;
+			} catch (NoSuchWarpException e) {
 				sender.sendMessage(
 						ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
 				return true;
 			}
 
-			World world = getPlugin().getServer().getWorld(warpSection.getString("world"));
-			if (!world.equals(((Player) sender).getLocation().getWorld())) {
-				sender.sendMessage(ChatColor.RED + "You must be in world " + ChatColor.RESET + world.getName()
-						+ ChatColor.RED + " to use this warp!");
-				return true;
-			}
-
-			Location location = new Location(world, warpSection.getDouble("x"), warpSection.getDouble("y"),
-					warpSection.getDouble("z"));
-			((Player) sender).teleport(location);
 			sender.sendMessage(
-					ChatColor.GREEN + "Teleported to warp " + ChatColor.YELLOW + args[0] + ChatColor.GREEN + "!");
+					ChatColor.GREEN + "Teleported to warp " + ChatColor.AQUA + args[0] + ChatColor.GREEN + "!");
 		}
 		return true;
 	}
