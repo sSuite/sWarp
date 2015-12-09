@@ -21,7 +21,7 @@ public class Warp {
 		this.name = name;
 		this.location = location;
 		this.owner = owner;
-		this.invitedPlayers = new ArrayList<String>();
+		invitedPlayers = new ArrayList<String>();
 	}
 
 	public void teleportPlayer(Player player) throws WorldMismatchException {
@@ -81,7 +81,7 @@ public class Warp {
 		for (int i = 0; i < invitedPlayers.size(); i++) {
 			players[i] = Bukkit.getServer().getOfflinePlayer(UUID.fromString(invitedPlayers.get(i)));
 		}
-		return invitedPlayers.toArray(new OfflinePlayer[0]);
+		return players;
 	}
 
 }

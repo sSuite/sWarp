@@ -3,7 +3,7 @@ package com.github.sSuite.sWarp.exception;
 public class WorldMismatchException extends Exception {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -4233828756055452094L;
 

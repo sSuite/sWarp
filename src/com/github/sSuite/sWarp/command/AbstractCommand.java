@@ -24,7 +24,7 @@ public abstract class AbstractCommand {
 	/**
 	 * Executes before the command logic. Calls and returns the value of
 	 * <code>onExecute</code>.
-	 * 
+	 *
 	 * @param sender
 	 *            - the command sender
 	 * @param args
@@ -45,7 +45,7 @@ public abstract class AbstractCommand {
 	/**
 	 * Checks whether or not the <code>sender</code> has permission to run the
 	 * command.
-	 * 
+	 *
 	 * @param sender
 	 *            - the command sender
 	 * @return whether or not the sender has permission

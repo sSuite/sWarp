@@ -25,7 +25,7 @@ public class WarpHandler {
 
 	public WarpHandler(Main plugin) {
 		this.plugin = plugin;
-		this.warpDataHandler = plugin.getWarpDataHandler();
+		warpDataHandler = plugin.getWarpDataHandler();
 
 		load();
 	}
