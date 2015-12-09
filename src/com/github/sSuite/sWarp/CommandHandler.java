@@ -8,11 +8,13 @@ import com.github.sSuite.sWarp.command.AbstractCommand;
 import com.github.sSuite.sWarp.command.CreateCommand;
 import com.github.sSuite.sWarp.command.GoCommand;
 import com.github.sSuite.sWarp.command.InfoCommand;
+import com.github.sSuite.sWarp.command.InviteCommand;
 import com.github.sSuite.sWarp.command.ListCommand;
 import com.github.sSuite.sWarp.command.PointCommand;
 import com.github.sSuite.sWarp.command.ReloadCommand;
 import com.github.sSuite.sWarp.command.RemoveCommand;
 import com.github.sSuite.sWarp.command.StopCommand;
+import com.github.sSuite.sWarp.command.UninviteCommand;
 
 public class CommandHandler implements CommandExecutor {
 
@@ -48,6 +50,12 @@ public class CommandHandler implements CommandExecutor {
 			case "remove":
 				commandClass = new RemoveCommand(plugin, "remove");
 				break;
+			case "invite":
+				commandClass = new InviteCommand(plugin, "invite");
+				break;
+			case "uninvite":
+				commandClass = new UninviteCommand(plugin, "invite");
+				break;
 			case "go":
 				commandClass = new GoCommand(plugin, "go");
 				break;
@@ -80,6 +88,10 @@ public class CommandHandler implements CommandExecutor {
 		CommandHelpUtility.sendCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location", sender,
 				"swarp.create");
 		CommandHelpUtility.sendCommand("/swarp remove <name>", "Removes the named warp", sender, "swarp.remove");
+		CommandHelpUtility.sendCommand("/swarp invite <name> <player>", "Invites the player to the named warp", sender,
+				"swarp.invite");
+		CommandHelpUtility.sendCommand("/swarp uninvite <name> <player>", "Uninvites the player from the named warp",
+				sender, "swarp.invite");
 		CommandHelpUtility.sendCommand("/swarp go <name>", "Teleports to the named warp", sender, "swarp.go");
 		CommandHelpUtility.sendCommand("/swarp point <name>", "Sets your compass to point to the named warp", sender,
 				"swarp.point");

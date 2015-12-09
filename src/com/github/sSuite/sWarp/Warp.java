@@ -40,6 +40,10 @@ public class Warp {
 		}
 	}
 
+	public boolean isOwner(OfflinePlayer player) {
+		return player.equals(player);
+	}
+
 	public boolean invitePlayer(OfflinePlayer player) {
 		if (isInvited(player)) {
 			return false;
@@ -49,6 +53,10 @@ public class Warp {
 
 		warpHandler.save();
 		return true;
+	}
+
+	public boolean uninvitePlayer(OfflinePlayer player) {
+		return invitedPlayers.remove(player.getUniqueId().toString());
 	}
 
 	public boolean isInvited(OfflinePlayer player) {

@@ -2,6 +2,7 @@ package com.github.sSuite.sWarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import com.github.sSuite.sWarp.Main;
 import com.github.sSuite.sWarp.Warp;
 import com.github.sSuite.sWarp.WarpHandler;
@@ -28,6 +29,12 @@ public class RemoveCommand extends AbstractCommand {
 
 		try {
 			targetWarp = warpHandler.getWarpByName(args[0]);
+
+			if (!targetWarp.isOwner((Player) sender) && !sender.hasPermission("swarp.remove.all")) {
+				sender.sendMessage(ChatColor.RED + "You do not own that warp!");
+				return true;
+			}
+
 			warpHandler.removeWarp(args[0]);
 		} catch (NoSuchWarpException e) {
 			sender.sendMessage(

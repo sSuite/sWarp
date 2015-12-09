@@ -34,6 +34,13 @@ public class PointCommand extends AbstractCommand {
 
 		try {
 			targetWarp = warpHandler.getWarpByName(args[0]);
+
+			if (!targetWarp.isOwner((Player) sender) && !targetWarp.isInvited((Player) sender)
+					&& !sender.hasPermission("swarp.point.all")) {
+				sender.sendMessage(ChatColor.RED + "You do not own that warp nor were you invited to it!");
+				return true;
+			}
+
 			targetWarp.setPlayerCompass((Player) sender);
 		} catch (WorldMismatchException e) {
 			sender.sendMessage(ChatColor.RED + "You must be in world " + ChatColor.RESET + e.getMessage()

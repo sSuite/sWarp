@@ -1,6 +1,5 @@
 package com.github.sSuite.sWarp.command;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -10,13 +9,13 @@ import com.github.sSuite.sWarp.Warp;
 import com.github.sSuite.sWarp.WarpHandler;
 import com.github.sSuite.sWarp.exception.NoSuchWarpException;
 
-public class InviteCommand extends AbstractCommand {
+public class UninviteCommand extends AbstractCommand {
 
-	public InviteCommand(Main plugin) {
+	public UninviteCommand(Main plugin) {
 		super(plugin);
 	}
 
-	public InviteCommand(Main plugin, String permissionNode) {
+	public UninviteCommand(Main plugin, String permissionNode) {
 		super(plugin, permissionNode);
 	}
 
@@ -43,27 +42,21 @@ public class InviteCommand extends AbstractCommand {
 		}
 
 		OfflinePlayer targetPlayer = null;
-		OfflinePlayer[] offlinePlayers = Bukkit.getServer().getOfflinePlayers();
+		OfflinePlayer[] invitedPlayers = targetWarp.getInvitedPlayers();
 
-		for (OfflinePlayer offlinePlayer : offlinePlayers) {
+		for (OfflinePlayer offlinePlayer : invitedPlayers) {
 			if (offlinePlayer.getName().equalsIgnoreCase(args[1])) {
 				targetPlayer = offlinePlayer;
 				break;
 			}
 		}
 
-		if (targetPlayer == null) {
-			sender.sendMessage(
-					ChatColor.RED + "That player has never logged in to the server and so could not be found!");
-			return true;
-		}
-
-		if (targetWarp.invitePlayer(targetPlayer)) {
-			sender.sendMessage(ChatColor.GREEN + "Invited " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET
-					+ " to " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
+		if (targetPlayer != null && targetWarp.uninvitePlayer(targetPlayer)) {
+			sender.sendMessage(ChatColor.GREEN + "Uninvited " + ChatColor.GOLD + targetPlayer.getName()
+					+ ChatColor.RESET + " from " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
 		} else {
-			sender.sendMessage(ChatColor.GOLD + targetPlayer.getName() + ChatColor.RED + " has already been invited to "
-					+ ChatColor.AQUA + targetWarp.getName() + ChatColor.RED + "!");
+			sender.sendMessage(ChatColor.GOLD + targetPlayer.getName() + ChatColor.RED + " has not been invited to "
+					+ ChatColor.AQUA + targetWarp.getName() + ChatColor.RESET + "!");
 		}
 
 		return true;

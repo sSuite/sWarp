@@ -8,21 +8,6 @@ commands:
     description: Main sWarp command.
     usage: /<command>
 permissions:
-  swarp.*:
-    description: Allows player access to all sWarp commands.
-    children:
-      swarp.reload: true
-      swarp.list: true
-      swarp.create: true
-      swarp.remove: true
-      swarp.remove.all: true
-      swarp.go: true
-      swarp.go.all: true
-      swarp.go.cross-world: true
-      swarp.point: true
-      swarp.point.all: true
-      swarp.info: true
-    default: op
   swarp.reload:
     description: Allows player to reload the configuration files.
     default: op
@@ -39,6 +24,14 @@ permissions:
     description: Allows player to remove own warps and warps other players created.
     children:
       swarp.remove: true
+    default: op
+  swarp.invite:
+    description: Allows player to invite players to own warps.
+    default: true
+  swarp.invite.all:
+    description: Allows player to invite players to own warps and warps other players created.
+    children:
+      swarp.invite: true
     default: op
   swarp.go:
     description: Allows player to teleport to own warps in the world that player is currently in.
