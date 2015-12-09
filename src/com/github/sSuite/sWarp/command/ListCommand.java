@@ -54,7 +54,7 @@ public class ListCommand extends AbstractCommand {
 		}
 
 		sender.sendMessage(CommandHelpUtility.createHeader("sWarp Warp List (" + ChatColor.GOLD + page + ChatColor.RESET
-				+ "/" + ChatColor.GOLD + pages + ChatColor.RESET + ")", 17));
+				+ "/" + ChatColor.GOLD + pages + ChatColor.RESET + ")", sender));
 		for (int i = (page - 1) * ENTRIES_PER_PAGE; i < page * ENTRIES_PER_PAGE && i < warps.length; i++) {
 			Warp warp = warps[i];
 			sender.sendMessage(ChatColor.AQUA + warp.getName() + ChatColor.RESET + " in " + ChatColor.GOLD

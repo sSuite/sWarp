@@ -3,7 +3,6 @@ package com.github.sSuite.sWarp;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import com.github.sSuite.sLib.utility.CommandHelpUtility;
 import com.github.sSuite.sWarp.command.AbstractCommand;
 import com.github.sSuite.sWarp.command.CreateCommand;
@@ -73,25 +72,20 @@ public class CommandHandler implements CommandExecutor {
 	}
 
 	private void showHelp(CommandSender sender) {
-		sender.sendMessage(CommandHelpUtility.createHeader("sWarp Help", !(sender instanceof Player)));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp reload", "Reloads the configuration files", sender,
-				"swarp.reload"));
-		sender.sendMessage(
-				CommandHelpUtility.createCommand("/swarp list [page]", "Lists the warps", sender, "swarp.list"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name>",
-				"Creates a warp at your current location", sender, "swarp.create"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name> <x> <y> <z>",
-				"Creates a warp at the location", sender, "swarp.create"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp remove <name>", "Removes the named warp", sender,
-				"swarp.remove"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp go <name>", "Teleports to the named warp", sender,
-				"swarp.go"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp point <name>",
-				"Sets your compass to point to the named warp", sender, "swarp.point"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp stop", "Makes your compass point to the spawn",
-				sender, "swarp.point"));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp info <name>",
-				"Provides information about the named warp", sender, "swarp.info"));
+		CommandHelpUtility.sendHeader("sWarp Help", sender);
+		CommandHelpUtility.sendCommand("/swarp reload", "Reloads the configuration files", sender, "swarp.reload");
+		CommandHelpUtility.sendCommand("/swarp list [page]", "Lists the warps", sender, "swarp.list");
+		CommandHelpUtility.sendCommand("/swarp create <name>", "Creates a warp at your current location", sender,
+				"swarp.create");
+		CommandHelpUtility.sendCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location", sender,
+				"swarp.create");
+		CommandHelpUtility.sendCommand("/swarp remove <name>", "Removes the named warp", sender, "swarp.remove");
+		CommandHelpUtility.sendCommand("/swarp go <name>", "Teleports to the named warp", sender, "swarp.go");
+		CommandHelpUtility.sendCommand("/swarp point <name>", "Sets your compass to point to the named warp", sender,
+				"swarp.point");
+		CommandHelpUtility.sendCommand("/swarp stop", "Makes your compass point to the spawn", sender, "swarp.point");
+		CommandHelpUtility.sendCommand("/swarp info <name>", "Provides information about the named warp", sender,
+				"swarp.info");
 	}
 
 }
