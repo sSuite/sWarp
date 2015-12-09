@@ -15,22 +15,18 @@ public class ReloadCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String[] args) {
+	public boolean onExecute(CommandSender sender, String[] args) {
 		if (args.length != 0) {
 			return false;
-		} else {
-			if (!hasPermission(sender)) {
-				sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do that!");
-				return true;
-			}
-
-			if (!getPlugin().reloadCustomConfig()) {
-				sender.sendMessage(ChatColor.RED
-						+ "Plugin configuration failed to reload! Check the console for the stack trace!");
-				return true;
-			}
-			sender.sendMessage(ChatColor.GREEN + "Plugin configuration reloaded!");
 		}
+
+		if (!getPlugin().reloadCustomConfig()) {
+			sender.sendMessage(
+					ChatColor.RED + "Plugin configuration failed to reload! Check the console for the stack trace!");
+			return true;
+		}
+		sender.sendMessage(ChatColor.GREEN + "Plugin configuration reloaded!");
+
 		return true;
 	}
 

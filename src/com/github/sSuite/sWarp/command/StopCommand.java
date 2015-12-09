@@ -16,22 +16,19 @@ public class StopCommand extends AbstractCommand {
 	}
 
 	@Override
-	public boolean execute(CommandSender sender, String[] args) {
+	public boolean onExecute(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
 			getPlugin().getLogger().severe("Only players can use /swarp stop!");
 		}
 
 		if (args.length != 0) {
 			return false;
-		} else {
-			if (!hasPermission(sender)) {
-				sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do that!");
-				return true;
-			}
-
-			((Player) sender).setCompassTarget(((Player) sender).getWorld().getSpawnLocation());
-			sender.sendMessage(ChatColor.GREEN + "Restored compass location!");
 		}
+
+		((Player) sender).setCompassTarget(((Player) sender).getWorld().getSpawnLocation());
+
+		sender.sendMessage(ChatColor.GREEN + "Restored compass location!");
+
 		return true;
 	}
 

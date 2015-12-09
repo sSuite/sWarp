@@ -51,7 +51,7 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 		}
 
-		warpHandler.loadWarps();
+		warpHandler.load();
 
 		return true;
 	}

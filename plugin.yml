@@ -15,37 +15,52 @@ permissions:
       swarp.list: true
       swarp.create: true
       swarp.remove: true
-      swarp.remove.others: true
+      swarp.remove.all: true
       swarp.go: true
-      swarp.go.crossworld: true
+      swarp.go.all: true
+      swarp.go.cross-world: true
       swarp.point: true
+      swarp.point.all: true
+      swarp.info: true
+    default: op
   swarp.reload:
-    description: Allows player to reload the configuration file.
+    description: Allows player to reload the configuration files.
     default: op
   swarp.list:
     description: Allows player to list the warps.
-    default: op
+    default: true
   swarp.create:
     description: Allows player to create warps.
-    default: op
+    default: true
   swarp.remove:
     description: Allows player to remove own warps.
-    default: op
+    default: true
   swarp.remove.all:
-    description: Allows player to remove warps other players created.
+    description: Allows player to remove own warps and warps other players created.
+    children:
+      swarp.remove: true
     default: op
   swarp.go:
     description: Allows player to teleport to own warps in the world that player is currently in.
     default: op
   swarp.go.all:
-    description: Allows player to teleport to warps other players created while uninvited.
+    description: Allows player to teleport to own warps and warps other players created even if uninvited.
+    children:
+      swarp.go: true
     default: op
-  swarp.go.crossworld:
+  swarp.go.cross-world:
     description: Allows player to teleport to warps in any world.
+    children:
+      swarp.go: true
     default: op
   swarp.point:
     description: Allows player to use the compass to point to own warps.
-    default: op
+    default: true
   swarp.point.all:
-    description: Allows player to use the compass to point to warps other players created while uninvited.
+    description: Allows player to use the compass to point to own warps and warps other players created even if uninvited.
+    children:
+      swarp.point: true
     default: op
+  swarp.info:
+    description: Allows player to view information about warps.
+    default: true

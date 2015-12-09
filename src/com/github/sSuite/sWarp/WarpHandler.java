@@ -1,9 +1,11 @@
 package com.github.sSuite.sWarp;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -25,10 +27,10 @@ public class WarpHandler {
 		this.plugin = plugin;
 		this.warpDataHandler = plugin.getWarpDataHandler();
 
-		loadWarps();
+		load();
 	}
 
-	public final void loadWarps() {
+	public final void load() {
 		configuration = warpDataHandler.getConfig();
 		ArrayList<String> warpNames = new ArrayList<String>(configuration.getKeys(false));
 
@@ -54,12 +56,50 @@ public class WarpHandler {
 			String uuidString = warpSection.getString("owner");
 
 			if (uuidString != null) {
-				warps[i] = new Warp(warpNames.get(i), location,
+				warps[i] = new Warp(this, warpNames.get(i), location,
 						Bukkit.getServer().getOfflinePlayer(UUID.fromString(uuidString)));
 			} else {
-				warps[i] = new Warp(warpNames.get(i), location, null);
+				warps[i] = new Warp(this, warpNames.get(i), location, null);
 			}
 		}
+
+		save();
+	}
+
+	public final void save() {
+		Set<String> keys = configuration.getKeys(false);
+
+		for (String key : keys) {
+			configuration.set(key, null);
+		}
+
+		for (Warp warp : warps) {
+			ConfigurationSection warpSection = configuration.createSection(warp.getName());
+
+			if (warp.getOwner() != null) {
+				warpSection.set("owner", warp.getOwner().getUniqueId().toString());
+			}
+
+			OfflinePlayer[] invitedPlayers = warp.getInvitedPlayers();
+			// if (invitedPlayers.length > 0) {
+			String[] invitedUUIDs = new String[invitedPlayers.length];
+
+			for (int i = 0; i < invitedPlayers.length; i++) {
+				invitedUUIDs[i] = invitedPlayers[i].getUniqueId().toString();
+			}
+
+			warpSection.set("invitees", invitedUUIDs);
+			// }
+
+			warpSection.set("world", warp.getLocation().getWorld().getName());
+			warpSection.set("x", warp.getLocation().getX());
+			warpSection.set("y", warp.getLocation().getY());
+			warpSection.set("z", warp.getLocation().getZ());
+			warpSection.set("yaw", warp.getLocation().getYaw());
+			warpSection.set("pitch", warp.getLocation().getPitch());
+		}
+
+		warpDataHandler.save();
 	}
 
 	public final void createWarp(String name, Location location) throws UnsafeWarpNameException, WarpExistsException {
@@ -72,38 +112,19 @@ public class WarpHandler {
 			throw new UnsafeWarpNameException();
 		}
 
-		ConfigurationSection warpSection = configuration.getConfigurationSection(name);
-		if (warpSection == null) {
-			warpSection = configuration.createSection(name);
-		} else {
-			// throw new WarpException(WarpExceptionReason.WARP_EXISTS);
-			throw new WarpExistsException();
-		}
-
-		if (player != null) {
-			warpSection.set("owner", player.getUniqueId().toString());
-		}
-		warpSection.set("world", location.getWorld().getName());
-		warpSection.set("x", location.getX());
-		warpSection.set("y", location.getY());
-		warpSection.set("z", location.getZ());
-		warpSection.set("yaw", location.getYaw());
-		warpSection.set("pitch", location.getPitch());
-
-		warpDataHandler.save();
-
 		Warp[] temporary = new Warp[warps.length + 1];
 		for (int i = 0; i < warps.length; i++) {
 			temporary[i] = warps[i];
 		}
 
-		temporary[warps.length] = new Warp(name, location, player);
+		temporary[warps.length] = new Warp(this, name, location, player);
+
+		save();
 	}
 
 	public final void removeWarp(String name) throws NoSuchWarpException {
 		ConfigurationSection warpSection = configuration.getConfigurationSection(name);
 		if (warpSection == null) {
-			// throw new WarpException(WarpExceptionReason.NO_SUCH_WARP);
 			throw new NoSuchWarpException();
 		} else {
 			configuration.set(name, null);
@@ -116,14 +137,13 @@ public class WarpHandler {
 		Warp resultWarp = null;
 
 		for (Warp warp : warps) {
-			if (warp.getName().equals(name)) {
+			if (warp.getName().equalsIgnoreCase(name)) {
 				resultWarp = warp;
 				break;
 			}
 		}
 
 		if (resultWarp == null) {
-			// throw new WarpException(WarpExceptionReason.NO_SUCH_WARP);
 			throw new NoSuchWarpException();
 		}
 

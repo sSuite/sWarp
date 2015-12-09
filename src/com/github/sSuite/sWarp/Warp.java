@@ -1,5 +1,8 @@
 package com.github.sSuite.sWarp;
 
+import java.util.ArrayList;
+import java.util.UUID;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -7,14 +10,18 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import com.github.sSuite.sWarp.exception.WorldMismatchException;
 
 public class Warp {
+	private WarpHandler warpHandler;
 	private String name;
 	private Location location;
 	private OfflinePlayer owner;
+	private ArrayList<String> invitedPlayers;
 
-	public Warp(String name, Location location, OfflinePlayer owner) {
+	public Warp(WarpHandler warpHandler, String name, Location location, OfflinePlayer owner) {
+		this.warpHandler = warpHandler;
 		this.name = name;
 		this.location = location;
 		this.owner = owner;
+		this.invitedPlayers = new ArrayList<String>();
 	}
 
 	public void teleportPlayer(Player player) throws WorldMismatchException {
@@ -31,7 +38,21 @@ public class Warp {
 		} else {
 			throw new WorldMismatchException(location.getWorld().getName());
 		}
+	}
 
+	public boolean invitePlayer(OfflinePlayer player) {
+		if (isInvited(player)) {
+			return false;
+		}
+
+		invitedPlayers.add(player.getUniqueId().toString());
+
+		warpHandler.save();
+		return true;
+	}
+
+	public boolean isInvited(OfflinePlayer player) {
+		return invitedPlayers.contains(player.getUniqueId().toString());
 	}
 
 	public String getName() {
@@ -44,6 +65,15 @@ public class Warp {
 
 	public OfflinePlayer getOwner() {
 		return owner;
+	}
+
+	public OfflinePlayer[] getInvitedPlayers() {
+		OfflinePlayer[] players = new OfflinePlayer[invitedPlayers.size()];
+
+		for (int i = 0; i < invitedPlayers.size(); i++) {
+			players[i] = Bukkit.getServer().getOfflinePlayer(UUID.fromString(invitedPlayers.get(i)));
+		}
+		return invitedPlayers.toArray(new OfflinePlayer[0]);
 	}
 
 }

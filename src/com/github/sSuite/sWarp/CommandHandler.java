@@ -8,6 +8,7 @@ import com.github.sSuite.sLib.utility.CommandHelpUtility;
 import com.github.sSuite.sWarp.command.AbstractCommand;
 import com.github.sSuite.sWarp.command.CreateCommand;
 import com.github.sSuite.sWarp.command.GoCommand;
+import com.github.sSuite.sWarp.command.InfoCommand;
 import com.github.sSuite.sWarp.command.ListCommand;
 import com.github.sSuite.sWarp.command.PointCommand;
 import com.github.sSuite.sWarp.command.ReloadCommand;
@@ -57,6 +58,9 @@ public class CommandHandler implements CommandExecutor {
 			case "stop":
 				commandClass = new StopCommand(plugin, "point");
 				break;
+			case "info":
+				commandClass = new InfoCommand(plugin, "info");
+				break;
 			default:
 				showHelp(sender);
 				return true;
@@ -69,25 +73,25 @@ public class CommandHandler implements CommandExecutor {
 	}
 
 	private void showHelp(CommandSender sender) {
-		sender.sendMessage(CommandHelpUtility.createHeader("sWarp", 22));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp reload", "Reloads the configuration files",
-				sender instanceof Player ? sender.hasPermission("swarp.reload") : true));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp list [page]", "Lists all warps",
-				sender instanceof Player ? sender.hasPermission("swarp.list") : true));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name>", "Creates a warp",
-				sender instanceof Player ? sender.hasPermission("swarp.create") : true));
+		sender.sendMessage(CommandHelpUtility.createHeader("sWarp Help", !(sender instanceof Player)));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp reload", "Reloads the configuration files", sender,
+				"swarp.reload"));
 		sender.sendMessage(
-				CommandHelpUtility.createCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location",
-						sender instanceof Player ? sender.hasPermission("swarp.create") : true));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp remove <name>", "Removes the warp",
-				sender instanceof Player ? sender.hasPermission("swarp.remove") : true));
-		sender.sendMessage(CommandHelpUtility.createCommand("/swarp go <name>", "Teleports to the warp",
-				sender instanceof Player ? sender.hasPermission("swarp.go") : true));
-		sender.sendMessage(
-				CommandHelpUtility.createCommand("/swarp point <name>", "Sets your compass to point to the warp",
-						sender instanceof Player ? sender.hasPermission("swarp.point") : true));
+				CommandHelpUtility.createCommand("/swarp list [page]", "Lists the warps", sender, "swarp.list"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name>",
+				"Creates a warp at your current location", sender, "swarp.create"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp create <name> <x> <y> <z>",
+				"Creates a warp at the location", sender, "swarp.create"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp remove <name>", "Removes the named warp", sender,
+				"swarp.remove"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp go <name>", "Teleports to the named warp", sender,
+				"swarp.go"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp point <name>",
+				"Sets your compass to point to the named warp", sender, "swarp.point"));
 		sender.sendMessage(CommandHelpUtility.createCommand("/swarp stop", "Makes your compass point to the spawn",
-				sender instanceof Player ? sender.hasPermission("swarp.point") : true));
+				sender, "swarp.point"));
+		sender.sendMessage(CommandHelpUtility.createCommand("/swarp info <name>",
+				"Provides information about the named warp", sender, "swarp.info"));
 	}
 
 }
