@@ -30,10 +30,10 @@ public class InviteCommand extends AbstractCommand {
 		Warp targetWarp = null;
 
 		try {
-			targetWarp = warpHandler.getWarpByName(args[0]);
+			targetWarp = warpHandler.getWarpByName(args[1]);
 		} catch (NoSuchWarpException e) {
 			sender.sendMessage(
-					ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
+					ChatColor.RED + "The warp " + ChatColor.RESET + args[1] + ChatColor.RED + " doesn't exist!");
 			return true;
 		}
 
@@ -46,7 +46,7 @@ public class InviteCommand extends AbstractCommand {
 		OfflinePlayer[] offlinePlayers = Bukkit.getServer().getOfflinePlayers();
 
 		for (OfflinePlayer offlinePlayer : offlinePlayers) {
-			if (offlinePlayer.getName().equalsIgnoreCase(args[1])) {
+			if (offlinePlayer.getName().equalsIgnoreCase(args[0])) {
 				targetPlayer = offlinePlayer;
 				break;
 			}

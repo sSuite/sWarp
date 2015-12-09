@@ -53,14 +53,12 @@ public class WarpHandler {
 					warpSection.getDouble("z"), (float) warpSection.getDouble("yaw"),
 					(float) warpSection.getDouble("pitch"));
 
-			String uuidString = warpSection.getString("owner");
+			ArrayList<String> invitedPlayers = new ArrayList<String>();
+			invitedPlayers.addAll(warpSection.getStringList("invitees"));
 
-			if (uuidString != null) {
-				warps[i] = new Warp(this, warpNames.get(i), location,
-						Bukkit.getServer().getOfflinePlayer(UUID.fromString(uuidString)));
-			} else {
-				warps[i] = new Warp(this, warpNames.get(i), location, null);
-			}
+			warps[i] = new Warp(this, warpNames.get(i), location,
+					Bukkit.getServer().getOfflinePlayer(UUID.fromString(warpSection.getString("owner"))),
+					invitedPlayers);
 		}
 
 		save();

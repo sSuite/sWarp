@@ -88,9 +88,9 @@ public class CommandHandler implements CommandExecutor {
 		CommandHelpUtility.sendCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location", sender,
 				"swarp.create");
 		CommandHelpUtility.sendCommand("/swarp remove <name>", "Removes the named warp", sender, "swarp.remove");
-		CommandHelpUtility.sendCommand("/swarp invite <name> <player>", "Invites the player to the named warp", sender,
+		CommandHelpUtility.sendCommand("/swarp invite <player> <name>", "Invites the player to the named warp", sender,
 				"swarp.invite");
-		CommandHelpUtility.sendCommand("/swarp uninvite <name> <player>", "Uninvites the player from the named warp",
+		CommandHelpUtility.sendCommand("/swarp uninvite <player> <name>", "Uninvites the player from the named warp",
 				sender, "swarp.invite");
 		CommandHelpUtility.sendCommand("/swarp go <name>", "Teleports to the named warp", sender, "swarp.go");
 		CommandHelpUtility.sendCommand("/swarp point <name>", "Sets your compass to point to the named warp", sender,

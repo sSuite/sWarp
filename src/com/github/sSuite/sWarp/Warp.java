@@ -17,11 +17,16 @@ public class Warp {
 	private ArrayList<String> invitedPlayers;
 
 	public Warp(WarpHandler warpHandler, String name, Location location, OfflinePlayer owner) {
+		this(warpHandler, name, location, owner, new ArrayList<String>());
+	}
+
+	public Warp(WarpHandler warpHandler, String name, Location location, OfflinePlayer owner,
+			ArrayList<String> invitedPlayers) {
 		this.warpHandler = warpHandler;
 		this.name = name;
 		this.location = location;
 		this.owner = owner;
-		invitedPlayers = new ArrayList<String>();
+		this.invitedPlayers = invitedPlayers;
 	}
 
 	public void teleportPlayer(Player player) throws WorldMismatchException {
@@ -41,7 +46,7 @@ public class Warp {
 	}
 
 	public boolean isOwner(OfflinePlayer player) {
-		return player.equals(player);
+		return owner.equals(player);
 	}
 
 	public boolean invitePlayer(OfflinePlayer player) {
