@@ -56,9 +56,9 @@ public class WarpHandler {
 			ArrayList<String> invitedPlayers = new ArrayList<String>();
 			invitedPlayers.addAll(warpSection.getStringList("invitees"));
 
-			warps[i] = new Warp(this, warpNames.get(i), location,
+			warps[i] = new Warp(this, warpNames.get(i),
 					Bukkit.getServer().getOfflinePlayer(UUID.fromString(warpSection.getString("owner"))),
-					invitedPlayers);
+					warpSection.getBoolean("public"), location, invitedPlayers);
 		}
 
 		save();
@@ -86,9 +86,8 @@ public class WarpHandler {
 				invitedUUIDs[i] = invitedPlayers[i].getUniqueId().toString();
 			}
 
+			warpSection.set("public", warp.isPublic());
 			warpSection.set("invitees", invitedUUIDs);
-			// }
-
 			warpSection.set("world", warp.getLocation().getWorld().getName());
 			warpSection.set("x", warp.getLocation().getX());
 			warpSection.set("y", warp.getLocation().getY());
@@ -110,23 +109,26 @@ public class WarpHandler {
 			throw new UnsafeWarpNameException();
 		}
 
+		try {
+			throw new WarpExistsException(getWarpByName(name).getName());
+		} catch (NoSuchWarpException e) {
+		}
+
 		Warp[] temporary = new Warp[warps.length + 1];
 		for (int i = 0; i < warps.length; i++) {
 			temporary[i] = warps[i];
 		}
 
-		temporary[warps.length] = new Warp(this, name, location, player);
+		temporary[warps.length] = new Warp(this, name, player, false, location);
+		warps = temporary;
 
 		save();
 	}
 
 	public final void removeWarp(String name) throws NoSuchWarpException {
-		ConfigurationSection warpSection = configuration.getConfigurationSection(name);
-		if (warpSection == null) {
-			throw new NoSuchWarpException();
-		} else {
-			configuration.set(name, null);
-		}
+		Warp targetWarp = getWarpByName(name);
+
+		configuration.set(targetWarp.getName(), null);
 
 		warpDataHandler.save();
 	}
@@ -150,6 +152,18 @@ public class WarpHandler {
 
 	public final Warp[] getAllWarps() {
 		return warps;
+	}
+
+	public final Warp[] getAllWarps(Player player) {
+		ArrayList<Warp> accessibleWarps = new ArrayList<Warp>();
+
+		for (Warp warp : warps) {
+			if (warp.isOwner(player) || warp.isPublic() || warp.isInvited(player)) {
+				accessibleWarps.add(warp);
+			}
+		}
+
+		return accessibleWarps.toArray(new Warp[0]);
 	}
 
 }

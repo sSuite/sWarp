@@ -10,10 +10,10 @@ import com.github.sSuite.sWarp.command.GoCommand;
 import com.github.sSuite.sWarp.command.InfoCommand;
 import com.github.sSuite.sWarp.command.InviteCommand;
 import com.github.sSuite.sWarp.command.ListCommand;
+import com.github.sSuite.sWarp.command.ModifyCommand;
 import com.github.sSuite.sWarp.command.PointCommand;
 import com.github.sSuite.sWarp.command.ReloadCommand;
 import com.github.sSuite.sWarp.command.RemoveCommand;
-import com.github.sSuite.sWarp.command.StopCommand;
 import com.github.sSuite.sWarp.command.UninviteCommand;
 
 public class CommandHandler implements CommandExecutor {
@@ -56,14 +56,14 @@ public class CommandHandler implements CommandExecutor {
 			case "uninvite":
 				commandClass = new UninviteCommand(plugin, "invite");
 				break;
+			case "modify":
+				commandClass = new ModifyCommand(plugin, "modify");
+				break;
 			case "go":
 				commandClass = new GoCommand(plugin, "go");
 				break;
 			case "point":
 				commandClass = new PointCommand(plugin, "point");
-				break;
-			case "stop":
-				commandClass = new StopCommand(plugin, "point");
 				break;
 			case "info":
 				commandClass = new InfoCommand(plugin, "info");
@@ -92,10 +92,12 @@ public class CommandHandler implements CommandExecutor {
 				"swarp.invite");
 		CommandHelpUtility.sendCommand("/swarp uninvite <player> <name>", "Uninvites the player from the named warp",
 				sender, "swarp.invite");
+		CommandHelpUtility.sendCommand("/swarp modify <name> <location|owner|pitch|yaw>", "Modifies the named warp",
+				sender, "swarp.modify");
 		CommandHelpUtility.sendCommand("/swarp go <name>", "Teleports to the named warp", sender, "swarp.go");
-		CommandHelpUtility.sendCommand("/swarp point <name>", "Sets your compass to point to the named warp", sender,
+		CommandHelpUtility.sendCommand("/swarp point [name]",
+				"Sets your compass to point to the named warp or resets it if no warp is specified", sender,
 				"swarp.point");
-		CommandHelpUtility.sendCommand("/swarp stop", "Makes your compass point to the spawn", sender, "swarp.point");
 		CommandHelpUtility.sendCommand("/swarp info <name>", "Provides information about the named warp", sender,
 				"swarp.info");
 	}

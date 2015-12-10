@@ -33,6 +33,12 @@ permissions:
     children:
       swarp.invite: true
     default: op
+  swarp.modify:
+    description: Allows player to modify own warps.
+    default: true
+  swarp.modify.all:
+    description: Allows player to modify own warps and warps other players created.
+    default: op
   swarp.go:
     description: Allows player to teleport to own warps in the world that player is currently in.
     default: op

@@ -2,7 +2,9 @@ package com.github.sSuite.sWarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import com.github.sSuite.sLib.utility.CommandHelpUtility;
+import com.github.sSuite.sLib.utility.MonospaceUtility;
 import com.github.sSuite.sLib.utility.NumberUtility;
 import com.github.sSuite.sWarp.Main;
 import com.github.sSuite.sWarp.Warp;
@@ -37,8 +39,13 @@ public class ListCommand extends AbstractCommand {
 		}
 
 		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		Warp[] warps;
 
-		Warp[] warps = warpHandler.getAllWarps();
+		if (sender instanceof Player) {
+			warps = warpHandler.getAllWarps((Player) sender);
+		} else {
+			warps = warpHandler.getAllWarps();
+		}
 
 		if (warps.length == 0) {
 			sender.sendMessage(ChatColor.RED + "There are no warps to list!");
@@ -57,11 +64,18 @@ public class ListCommand extends AbstractCommand {
 				+ "/" + ChatColor.GOLD + pages + ChatColor.RESET + ")", sender));
 		for (int i = (page - 1) * ENTRIES_PER_PAGE; i < page * ENTRIES_PER_PAGE && i < warps.length; i++) {
 			Warp warp = warps[i];
-			sender.sendMessage(ChatColor.AQUA + warp.getName() + ChatColor.RESET + " in " + ChatColor.GOLD
-					+ warp.getLocation().getWorld().getName() + ChatColor.RESET + " @ "
-					+ NumberUtility.roundDouble(warp.getLocation().getX(), 1) + ", "
-					+ NumberUtility.roundDouble(warp.getLocation().getY(), 1) + ", "
-					+ NumberUtility.roundDouble(warp.getLocation().getZ(), 1));
+			String info = ChatColor.AQUA + warp.getName() + ChatColor.RESET + " by " + ChatColor.GOLD
+					+ warp.getOwner().getName() + ChatColor.RESET;
+			String location = "@ " + NumberUtility.roundString(warp.getLocation().getX()) + ", "
+					+ NumberUtility.roundString(warp.getLocation().getY()) + ", "
+					+ NumberUtility.roundString(warp.getLocation().getZ()) + " in " + ChatColor.GOLD
+					+ warp.getLocation().getWorld().getName();
+
+			sender.sendMessage(MonospaceUtility.fillToWidthWithString(info, " ",
+					(sender instanceof Player ? MonospaceUtility.DEFAULT_CLIENT_WIDTH
+							: MonospaceUtility.DEFAULT_MONOSPACE_WIDTH)
+							- MonospaceUtility.getStringWidth(location, !(sender instanceof Player)),
+					!(sender instanceof Player)) + location);
 		}
 		if (page < pages) {
 			sender.sendMessage("Use " + ChatColor.YELLOW + "/swarp list " + (page + 1) + ChatColor.RESET

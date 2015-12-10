@@ -43,7 +43,7 @@ public class RemoveCommand extends AbstractCommand {
 		}
 
 		sender.sendMessage(
-				ChatColor.GREEN + "Removed warp \"" + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "\"!");
+				ChatColor.GREEN + "Removed warp " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
 
 		return true;
 	}

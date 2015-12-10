@@ -52,13 +52,13 @@ public class CreateCommand extends AbstractCommand {
 					+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
 			return true;
 		} catch (WarpExistsException e) {
-			sender.sendMessage(
-					ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " already exists!");
+			sender.sendMessage(ChatColor.RED + "The warp " + ChatColor.RESET + e.getMessage() + ChatColor.RED
+					+ " already exists!");
 			return true;
 		}
 
-		sender.sendMessage(ChatColor.GREEN + "Created warp \"" + ChatColor.AQUA + args[0] + ChatColor.GREEN
-				+ "\" in world " + ChatColor.GOLD + location.getWorld().getName() + ChatColor.GREEN + "!");
+		sender.sendMessage(ChatColor.GREEN + "Created warp " + ChatColor.AQUA + args[0] + ChatColor.GREEN + " in world "
+				+ ChatColor.GOLD + location.getWorld().getName() + ChatColor.GREEN + "!");
 
 		return true;
 	}
