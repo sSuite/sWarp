@@ -18,6 +18,8 @@ import com.github.sSuite.sWarp.command.UninviteCommand;
 
 public class CommandHandler implements CommandExecutor {
 
+	private static final char FLAG_CHARACTER = '-';
+
 	private Main plugin;
 
 	public CommandHandler(Main plugin) {
@@ -73,6 +75,8 @@ public class CommandHandler implements CommandExecutor {
 				return true;
 		}
 
+		newArgs = commandClass.doFlagProcessing(newArgs, FLAG_CHARACTER);
+
 		if (!commandClass.execute(sender, newArgs)) {
 			showHelp(sender);
 		}
@@ -83,10 +87,9 @@ public class CommandHandler implements CommandExecutor {
 		CommandHelpUtility.sendHeader("sWarp Help", sender);
 		CommandHelpUtility.sendCommand("/swarp reload", "Reloads the configuration files", sender, "swarp.reload");
 		CommandHelpUtility.sendCommand("/swarp list [page]", "Lists the warps", sender, "swarp.list");
-		CommandHelpUtility.sendCommand("/swarp create <name>", "Creates a warp at your current location", sender,
-				"swarp.create");
-		CommandHelpUtility.sendCommand("/swarp create <name> <x> <y> <z>", "Creates a warp at the location", sender,
-				"swarp.create");
+		CommandHelpUtility.sendCommand("/swarp create [-p|--private] <name> [x] [y] [z]",
+				"Creates a warp at your current location or the location specified. The warp is public unless -p or --private is specified",
+				sender, "swarp.create");
 		CommandHelpUtility.sendCommand("/swarp remove <name>", "Removes the named warp", sender, "swarp.remove");
 		CommandHelpUtility.sendCommand("/swarp invite <player> <name>", "Invites the player to the named warp", sender,
 				"swarp.invite");

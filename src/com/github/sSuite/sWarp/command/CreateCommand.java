@@ -1,5 +1,6 @@
 package com.github.sSuite.sWarp.command;
 
+import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -20,6 +21,23 @@ public class CreateCommand extends AbstractCommand {
 	}
 
 	@Override
+	public ArrayList<String> processFlags() {
+		ArrayList<String> flags = getFlags();
+
+		for (String flag : flags) {
+			if (flag.equals("private")) {
+				if (!flags.contains("p")) {
+					flags.add("p");
+				}
+
+				flags.remove("private");
+			}
+		}
+
+		return flags;
+	}
+
+	@Override
 	public boolean onExecute(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
 			getPlugin().getLogger().severe("Only players can use /swarp create!");
@@ -28,6 +46,8 @@ public class CreateCommand extends AbstractCommand {
 		if (args.length != 1 && args.length != 4) {
 			return false;
 		}
+
+		boolean isPublic = !getFlags().contains("p");
 
 		Location location = ((Player) sender).getLocation();
 
@@ -46,7 +66,7 @@ public class CreateCommand extends AbstractCommand {
 		WarpHandler warpHandler = getPlugin().getWarpHandler();
 
 		try {
-			warpHandler.createWarp(args[0], location, (Player) sender);
+			warpHandler.createWarp(args[0], (Player) sender, isPublic, location);
 		} catch (UnsafeWarpNameException e) {
 			sender.sendMessage(ChatColor.RED
 					+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
@@ -57,8 +77,9 @@ public class CreateCommand extends AbstractCommand {
 			return true;
 		}
 
-		sender.sendMessage(ChatColor.GREEN + "Created warp " + ChatColor.AQUA + args[0] + ChatColor.GREEN + " in world "
-				+ ChatColor.GOLD + location.getWorld().getName() + ChatColor.GREEN + "!");
+		sender.sendMessage(ChatColor.GREEN + "Created " + (isPublic ? "public" : "private") + " warp " + ChatColor.AQUA
+				+ args[0] + ChatColor.GREEN + " in world " + ChatColor.GOLD + location.getWorld().getName()
+				+ ChatColor.GREEN + "!");
 
 		return true;
 	}

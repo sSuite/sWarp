@@ -99,13 +99,9 @@ public class WarpHandler {
 		warpDataHandler.save();
 	}
 
-	public final void createWarp(String name, Location location) throws UnsafeWarpNameException, WarpExistsException {
-		createWarp(name, location, null);
-	}
-
-	public final void createWarp(String name, Location location, Player player)
+	public final void createWarp(String name, Player player, boolean isPublic, Location location)
 			throws UnsafeWarpNameException, WarpExistsException {
-		if (!StringUtility.yamlSafe(name)) {
+		if (!StringUtility.yamlSafe(name) || name.length() < 0) {
 			throw new UnsafeWarpNameException();
 		}
 
@@ -119,7 +115,7 @@ public class WarpHandler {
 			temporary[i] = warps[i];
 		}
 
-		temporary[warps.length] = new Warp(this, name, player, false, location);
+		temporary[warps.length] = new Warp(this, name, player, isPublic, location);
 		warps = temporary;
 
 		save();
@@ -127,6 +123,17 @@ public class WarpHandler {
 
 	public final void removeWarp(String name) throws NoSuchWarpException {
 		Warp targetWarp = getWarpByName(name);
+
+		Warp[] temporary = new Warp[warps.length - 1];
+		int i = 0;
+		for (Warp warp : warps) {
+			if (warp != targetWarp) {
+				temporary[i] = warps[i];
+				i++;
+			}
+		}
+
+		warps = temporary;
 
 		configuration.set(targetWarp.getName(), null);
 
