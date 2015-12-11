@@ -41,7 +41,7 @@ public abstract class AbstractCommand {
 	 * immediately follow the alphabetic character. Processes any flags found in
 	 * the command arguments, stores them internally, and returns the arguments
 	 * without any flags.
-	 * 
+	 *
 	 * @param args
 	 *            - the arguments
 	 * @param flagCharacter
@@ -78,7 +78,7 @@ public abstract class AbstractCommand {
 
 	/**
 	 * Further process the flags.
-	 * 
+	 *
 	 * @return the new flags
 	 */
 	public ArrayList<String> processFlags() {
