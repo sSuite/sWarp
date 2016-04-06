@@ -1,7 +1,7 @@
 name: sWarp
 author: Smiley43210
-main: com.github.sSuite.sWarp.Main
-version: 1.0.0
+main: com.github.ssuite.swarp.Main
+version: 1.1.0
 depend: [sLib]
 commands:
   swarp:
@@ -63,3 +63,11 @@ permissions:
   swarp.info:
     description: Allows player to view information about warps.
     default: true
+  swarp.player:
+    description: Allows player to make requests to use the compass to track players.
+    default: true
+  swarp.player.silent:
+    description: Allows players to track players without making requests.
+    children:
+      swarp.player: true
+    default: op

@@ -1,14 +1,14 @@
-package com.github.sSuite.sWarp.command;
+package com.github.ssuite.swarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sLib.utility.CommandHelpUtility;
-import com.github.sSuite.sLib.utility.MonospaceUtility;
-import com.github.sSuite.sLib.utility.NumberUtility;
-import com.github.sSuite.sWarp.Main;
-import com.github.sSuite.sWarp.Warp;
-import com.github.sSuite.sWarp.WarpHandler;
+import com.github.ssuite.slib.utility.CommandHelpUtility;
+import com.github.ssuite.slib.utility.MonospaceUtility;
+import com.github.ssuite.slib.utility.NumberUtility;
+import com.github.ssuite.swarp.Main;
+import com.github.ssuite.swarp.Warp;
+import com.github.ssuite.swarp.WarpHandler;
 
 public class ListCommand extends AbstractCommand {
 

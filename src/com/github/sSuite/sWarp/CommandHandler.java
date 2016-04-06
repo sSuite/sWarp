@@ -1,20 +1,22 @@
-package com.github.sSuite.sWarp;
+package com.github.ssuite.swarp;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import com.github.sSuite.sLib.utility.CommandHelpUtility;
-import com.github.sSuite.sWarp.command.AbstractCommand;
-import com.github.sSuite.sWarp.command.CreateCommand;
-import com.github.sSuite.sWarp.command.GoCommand;
-import com.github.sSuite.sWarp.command.InfoCommand;
-import com.github.sSuite.sWarp.command.InviteCommand;
-import com.github.sSuite.sWarp.command.ListCommand;
-import com.github.sSuite.sWarp.command.ModifyCommand;
-import com.github.sSuite.sWarp.command.PointCommand;
-import com.github.sSuite.sWarp.command.ReloadCommand;
-import com.github.sSuite.sWarp.command.RemoveCommand;
-import com.github.sSuite.sWarp.command.UninviteCommand;
+import com.github.ssuite.slib.utility.CommandHelpUtility;
+import com.github.ssuite.swarp.command.AbstractCommand;
+import com.github.ssuite.swarp.command.CreateCommand;
+import com.github.ssuite.swarp.command.GoCommand;
+import com.github.ssuite.swarp.command.InfoCommand;
+import com.github.ssuite.swarp.command.InviteCommand;
+import com.github.ssuite.swarp.command.ListCommand;
+import com.github.ssuite.swarp.command.ModifyCommand;
+import com.github.ssuite.swarp.command.PlayerCommand;
+import com.github.ssuite.swarp.command.PointCommand;
+import com.github.ssuite.swarp.command.ReloadCommand;
+import com.github.ssuite.swarp.command.RemoveCommand;
+import com.github.ssuite.swarp.command.RequestCommand;
+import com.github.ssuite.swarp.command.UninviteCommand;
 
 public class CommandHandler implements CommandExecutor {
 
@@ -70,6 +72,12 @@ public class CommandHandler implements CommandExecutor {
 			case "info":
 				commandClass = new InfoCommand(plugin, "info");
 				break;
+			case "player":
+				commandClass = new PlayerCommand(plugin, "player");
+				break;
+			case "request":
+				commandClass = new RequestCommand(plugin);
+				break;
 			default:
 				showHelp(sender);
 				return true;
@@ -103,6 +111,9 @@ public class CommandHandler implements CommandExecutor {
 				"swarp.point");
 		CommandHelpUtility.sendCommand("/swarp info <name>", "Provides information about the named warp", sender,
 				"swarp.info");
+		CommandHelpUtility.sendCommand("/swarp player [-s|--silent] <player>",
+				"Sets your compass to point to the player, if the player accepts the request. If -s or --silent is specified, the request is not sent",
+				sender, "swarp.player");
 	}
 
 }

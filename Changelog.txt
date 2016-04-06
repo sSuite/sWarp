@@ -1,0 +1,9 @@
+1.1.0 (4/6/16)
+Made all package names lowercase
+Refactored tons of code
+Fixed commands erroring when used from console
+Added the ability to track players
+Added console notification when an update is available
+
+1.0.0 (12/10/15)
+Initial release

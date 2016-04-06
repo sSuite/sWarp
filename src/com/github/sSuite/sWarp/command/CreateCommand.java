@@ -1,14 +1,14 @@
-package com.github.sSuite.sWarp.command;
+package com.github.ssuite.swarp.command;
 
 import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sWarp.Main;
-import com.github.sSuite.sWarp.WarpHandler;
-import com.github.sSuite.sWarp.exception.UnsafeWarpNameException;
-import com.github.sSuite.sWarp.exception.WarpExistsException;
+import com.github.ssuite.swarp.Main;
+import com.github.ssuite.swarp.WarpHandler;
+import com.github.ssuite.swarp.exception.UnsafeWarpNameException;
+import com.github.ssuite.swarp.exception.WarpExistsException;
 
 public class CreateCommand extends AbstractCommand {
 
@@ -41,6 +41,7 @@ public class CreateCommand extends AbstractCommand {
 	public boolean onExecute(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
 			getPlugin().getLogger().severe("Only players can use /swarp create!");
+			return true;
 		}
 
 		if (args.length != 1 && args.length != 4) {

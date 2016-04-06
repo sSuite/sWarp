@@ -1,13 +1,13 @@
-package com.github.sSuite.sWarp.command;
+package com.github.ssuite.swarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sWarp.Main;
-import com.github.sSuite.sWarp.Warp;
-import com.github.sSuite.sWarp.WarpHandler;
-import com.github.sSuite.sWarp.exception.NoSuchWarpException;
-import com.github.sSuite.sWarp.exception.WorldMismatchException;
+import com.github.ssuite.swarp.Main;
+import com.github.ssuite.swarp.Warp;
+import com.github.ssuite.swarp.WarpHandler;
+import com.github.ssuite.swarp.exception.NoSuchWarpException;
+import com.github.ssuite.swarp.exception.WorldMismatchException;
 
 public class PointCommand extends AbstractCommand {
 
@@ -22,7 +22,8 @@ public class PointCommand extends AbstractCommand {
 	@Override
 	public boolean onExecute(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
-			getPlugin().getLogger().severe("Only players can use /swarp set!");
+			getPlugin().getLogger().severe("Only players can use /swarp point!");
+			return true;
 		}
 
 		if (args.length != 0 && args.length != 1) {
@@ -30,6 +31,7 @@ public class PointCommand extends AbstractCommand {
 		}
 
 		if (args.length == 0) {
+			getPlugin().getPlayerLocationService().cancelUpdate((Player) sender);
 			((Player) sender).setCompassTarget(((Player) sender).getWorld().getSpawnLocation());
 
 			sender.sendMessage(ChatColor.GREEN + "Restored compass location!");

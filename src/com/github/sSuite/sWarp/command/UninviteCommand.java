@@ -1,13 +1,13 @@
-package com.github.sSuite.sWarp.command;
+package com.github.ssuite.swarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sWarp.Main;
-import com.github.sSuite.sWarp.Warp;
-import com.github.sSuite.sWarp.WarpHandler;
-import com.github.sSuite.sWarp.exception.NoSuchWarpException;
+import com.github.ssuite.swarp.Main;
+import com.github.ssuite.swarp.Warp;
+import com.github.ssuite.swarp.WarpHandler;
+import com.github.ssuite.swarp.exception.NoSuchWarpException;
 
 public class UninviteCommand extends AbstractCommand {
 

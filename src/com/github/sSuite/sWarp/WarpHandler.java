@@ -1,4 +1,4 @@
-package com.github.sSuite.sWarp;
+package com.github.ssuite.swarp;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -10,11 +10,11 @@ import org.bukkit.World;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sLib.ConfigurationHandler;
-import com.github.sSuite.sLib.utility.StringUtility;
-import com.github.sSuite.sWarp.exception.NoSuchWarpException;
-import com.github.sSuite.sWarp.exception.UnsafeWarpNameException;
-import com.github.sSuite.sWarp.exception.WarpExistsException;
+import com.github.ssuite.slib.ConfigurationHandler;
+import com.github.ssuite.slib.utility.StringUtility;
+import com.github.ssuite.swarp.exception.NoSuchWarpException;
+import com.github.ssuite.swarp.exception.UnsafeWarpNameException;
+import com.github.ssuite.swarp.exception.WarpExistsException;
 
 public class WarpHandler {
 
@@ -41,7 +41,7 @@ public class WarpHandler {
 				warpNames.remove(warpName);
 			}
 		}
-		plugin.getWarpDataHandler().save();
+		warpDataHandler.save();
 
 		warps = new Warp[warpNames.size()];
 
@@ -171,6 +171,10 @@ public class WarpHandler {
 		}
 
 		return accessibleWarps.toArray(new Warp[0]);
+	}
+
+	public Main getPlugin() {
+		return plugin;
 	}
 
 }

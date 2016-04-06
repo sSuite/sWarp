@@ -1,13 +1,13 @@
-package com.github.sSuite.sWarp.command;
+package com.github.ssuite.swarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sWarp.Main;
-import com.github.sSuite.sWarp.Warp;
-import com.github.sSuite.sWarp.WarpHandler;
-import com.github.sSuite.sWarp.exception.NoSuchWarpException;
-import com.github.sSuite.sWarp.exception.WorldMismatchException;
+import com.github.ssuite.swarp.Main;
+import com.github.ssuite.swarp.Warp;
+import com.github.ssuite.swarp.WarpHandler;
+import com.github.ssuite.swarp.exception.NoSuchWarpException;
+import com.github.ssuite.swarp.exception.WorldMismatchException;
 
 public class GoCommand extends AbstractCommand {
 
@@ -23,6 +23,7 @@ public class GoCommand extends AbstractCommand {
 	public boolean onExecute(CommandSender sender, String[] args) {
 		if (!(sender instanceof Player)) {
 			getPlugin().getLogger().severe("Only players can use /swarp go!");
+			return true;
 		}
 
 		if (args.length != 1) {

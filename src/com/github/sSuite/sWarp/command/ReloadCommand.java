@@ -1,8 +1,8 @@
-package com.github.sSuite.sWarp.command;
+package com.github.ssuite.swarp.command;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import com.github.sSuite.sWarp.Main;
+import com.github.ssuite.swarp.Main;
 
 public class ReloadCommand extends AbstractCommand {
 

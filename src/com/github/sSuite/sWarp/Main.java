@@ -1,18 +1,25 @@
-package com.github.sSuite.sWarp;
+package com.github.ssuite.swarp;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.yaml.snakeyaml.scanner.ScannerException;
-import com.github.sSuite.sLib.ConfigurationHandler;
+import com.github.ssuite.slib.ConfigurationHandler;
 
 public class Main extends JavaPlugin {
 
+	private final int UPDATE_INTERVAL = 60 * 60 * 24; // 1 day
+
 	private Configuration configuration;
+	private BukkitScheduler scheduler;
 	public ConfigurationHandler warpDataHandler;
 
 	private WarpHandler warpHandler;
+	private PlayerLocationService playerLocationService;
+	private RequestService requestService;
 
 	@Override
 	public void onEnable() {
@@ -20,8 +27,15 @@ public class Main extends JavaPlugin {
 		configuration.options().copyDefaults(true);
 		saveConfig();
 
+		scheduler = Bukkit.getScheduler();
+		scheduleUpdateTask();
+
 		warpDataHandler = new ConfigurationHandler(this, "warps");
 		warpHandler = new WarpHandler(this);
+		playerLocationService = new PlayerLocationService(this);
+		requestService = new RequestService(this);
+
+		getServer().getPluginManager().registerEvents(playerLocationService, this);
 
 		getCommand("swarp").setExecutor(new CommandHandler(this));
 	}
@@ -29,6 +43,14 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 
+	}
+
+	public void scheduleUpdateTask() {
+		scheduler.cancelTasks(this);
+
+		if (getConfig().getBoolean("notifyOnUpdate")) {
+			scheduler.scheduleSyncRepeatingTask(this, new UpdateTask(this), 20L, UPDATE_INTERVAL * 20L);
+		}
 	}
 
 	public boolean reloadCustomConfig() {
@@ -44,14 +66,14 @@ public class Main extends JavaPlugin {
 		try {
 			warpDataHandler.load();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		warpHandler.load();
+
+		scheduleUpdateTask();
 
 		return true;
 	}
@@ -62,6 +84,14 @@ public class Main extends JavaPlugin {
 
 	public WarpHandler getWarpHandler() {
 		return warpHandler;
+	}
+
+	public PlayerLocationService getPlayerLocationService() {
+		return playerLocationService;
+	}
+
+	public RequestService getRequestService() {
+		return requestService;
 	}
 
 }

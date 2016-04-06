@@ -1,4 +1,4 @@
-package com.github.sSuite.sWarp.command;
+package com.github.ssuite.swarp.command;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.sSuite.sWarp.Main;
+import com.github.ssuite.swarp.Main;
 
 public abstract class AbstractCommand {
 
@@ -19,6 +19,7 @@ public abstract class AbstractCommand {
 
 	public AbstractCommand(Main plugin) {
 		this.plugin = plugin;
+		this.permissionNode = null;
 	}
 
 	public AbstractCommand(Main plugin, String permissionNode) {
@@ -96,7 +97,7 @@ public abstract class AbstractCommand {
 	 * @return whether or not the sWarp command help should be shown
 	 */
 	public final boolean execute(CommandSender sender, String[] args) {
-		if (!hasPermission(sender)) {
+		if (!hasCommandPermission(sender)) {
 			sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to do that!");
 			return true;
 		}
@@ -104,6 +105,15 @@ public abstract class AbstractCommand {
 		return onExecute(sender, args);
 	}
 
+	/**
+	 * The method stub for all of the command logic.
+	 * 
+	 * @param sender
+	 *            - the command sender
+	 * @param args
+	 *            - the command arguments
+	 * @return whether or not the sWarp command help should be shown
+	 */
 	public abstract boolean onExecute(CommandSender sender, String[] args);
 
 	/**
@@ -114,9 +124,46 @@ public abstract class AbstractCommand {
 	 *            - the command sender
 	 * @return whether or not the sender has permission
 	 */
-	public boolean hasPermission(CommandSender sender) {
+	public boolean hasCommandPermission(CommandSender sender) {
 		if (sender instanceof Player) {
-			return permissionNode != null && sender.hasPermission(PERMISSION_ROOT + permissionNode);
+			return permissionNode == null || sender.hasPermission(PERMISSION_ROOT + permissionNode);
+		}
+		return true;
+	}
+
+	/**
+	 * Checks whether or not the <code>sender</code> has a permission under
+	 * <code>PERMISSION_ROOT</code>. Equivalent to checking if the sender has
+	 * <code>PERMISSION_ROOT + permission</code>.
+	 *
+	 * @param sender
+	 *            - the command sender
+	 * @param permission
+	 *            - the permission
+	 * @return whether or not the sender has permission
+	 */
+	public boolean hasPermission(CommandSender sender, String permission) {
+		if (sender instanceof Player) {
+			return sender.hasPermission(PERMISSION_ROOT + permission);
+		}
+		return true;
+	}
+
+	/**
+	 * Checks whether or not the <code>sender</code> has a permission under
+	 * <code>PERMISSION_ROOT</code> and the command's permission. Equivalent to
+	 * checking if the sender has
+	 * <code>PERMISSION_ROOT + commandPermission + "." + permission</code>.
+	 *
+	 * @param sender
+	 *            - the command sender
+	 * @param permission
+	 *            - the permission
+	 * @return whether or not the sender has permission
+	 */
+	public boolean hasSubPermission(CommandSender sender, String permission) {
+		if (sender instanceof Player) {
+			return sender.hasPermission(PERMISSION_ROOT + (permission == null ? "" : permission + ".") + permission);
 		}
 		return true;
 	}

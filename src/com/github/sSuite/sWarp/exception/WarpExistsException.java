@@ -1,4 +1,4 @@
-package com.github.sSuite.sWarp.exception;
+package com.github.ssuite.swarp.exception;
 
 public class WarpExistsException extends Exception {
 

@@ -1,4 +1,4 @@
-package com.github.sSuite.sWarp;
+package com.github.ssuite.swarp;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -7,9 +7,9 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
-import com.github.sSuite.sLib.utility.StringUtility;
-import com.github.sSuite.sWarp.exception.UnsafeWarpNameException;
-import com.github.sSuite.sWarp.exception.WorldMismatchException;
+import com.github.ssuite.slib.utility.StringUtility;
+import com.github.ssuite.swarp.exception.UnsafeWarpNameException;
+import com.github.ssuite.swarp.exception.WorldMismatchException;
 
 public class Warp {
 	private WarpHandler warpHandler;
@@ -42,11 +42,14 @@ public class Warp {
 	}
 
 	public void setPlayerCompass(Player player) throws WorldMismatchException {
-		if (player.getWorld().equals(location.getWorld())) {
-			player.setCompassTarget(location);
-		} else {
+		if (!player.getWorld().equals(location.getWorld())) {
 			throw new WorldMismatchException(location.getWorld().getName());
 		}
+
+		// Stop updates if compass is pointing to another player
+		warpHandler.getPlugin().getPlayerLocationService().cancelUpdate(player);
+
+		player.setCompassTarget(location);
 	}
 
 	public String getName() {
