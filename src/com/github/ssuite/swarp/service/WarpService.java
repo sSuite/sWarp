@@ -1,4 +1,4 @@
-package com.github.ssuite.swarp;
+package com.github.ssuite.swarp.service;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -12,18 +12,20 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import com.github.ssuite.slib.ConfigurationHandler;
 import com.github.ssuite.slib.utility.StringUtility;
+import com.github.ssuite.swarp.Main;
+import com.github.ssuite.swarp.Warp;
 import com.github.ssuite.swarp.exception.NoSuchWarpException;
 import com.github.ssuite.swarp.exception.UnsafeWarpNameException;
 import com.github.ssuite.swarp.exception.WarpExistsException;
 
-public class WarpHandler {
+public class WarpService {
 
 	private Main plugin;
 	private Warp[] warps;
 	private ConfigurationHandler warpDataHandler;
 	private Configuration configuration;
 
-	public WarpHandler(Main plugin) {
+	public WarpService(Main plugin) {
 		this.plugin = plugin;
 		warpDataHandler = plugin.getWarpDataHandler();
 

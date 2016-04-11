@@ -9,9 +9,9 @@ import org.bukkit.entity.Player;
 import com.github.ssuite.slib.utility.CommandHelpUtility;
 import com.github.ssuite.swarp.Main;
 import com.github.ssuite.swarp.Warp;
-import com.github.ssuite.swarp.WarpHandler;
 import com.github.ssuite.swarp.exception.NoSuchWarpException;
 import com.github.ssuite.swarp.exception.UnsafeWarpNameException;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class ModifyCommand extends AbstractCommand {
 
@@ -30,11 +30,11 @@ public class ModifyCommand extends AbstractCommand {
 			return true;
 		}
 
-		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		WarpService warpService = getPlugin().getWarpService();
 		Warp targetWarp = null;
 
 		try {
-			targetWarp = warpHandler.getWarpByName(args[0]);
+			targetWarp = warpService.getWarpByName(args[0]);
 		} catch (NoSuchWarpException e) {
 			sender.sendMessage(
 					ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");

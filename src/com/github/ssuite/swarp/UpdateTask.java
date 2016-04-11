@@ -63,12 +63,18 @@ public class UpdateTask implements Runnable {
 
 			if (matcher.find()) {
 				latestVersion = matcher.group(1);
+				String pluginVersion = plugin.getDescription().getVersion();
 
-				plugin.getLogger().info("An update (current: " + plugin.getDescription().getVersion() + ", new: "
-						+ latestVersion + ") is now available!");
-				plugin.getLogger().info("Download it from http://dev.bukkit.org/bukkit-plugins/swarp/");
+				if (newer(pluginVersion, latestVersion)) {
+					plugin.getLogger().info(
+							"An update (current: " + pluginVersion + ", new: " + latestVersion + ") is now available!");
+					plugin.getLogger().info("Download it from http://dev.bukkit.org/bukkit-plugins/swarp/");
+				} else {
+					plugin.getLogger().info("You have the latest version!");
+				}
 			} else {
-				plugin.getLogger().warning("Error parsing update details!");
+				// The latest release file doesn't match the version regex
+				plugin.getLogger().warning("Error parsing file details!");
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -98,6 +104,24 @@ public class UpdateTask implements Runnable {
 			stringBuilder.append(authors[i] + (i + 1 < authors.length ? ", " : ""));
 		}
 		return stringBuilder.toString();
+	}
+
+	private final boolean newer(String currentVersion, String checkVersion) {
+		String[] currentParts = currentVersion.split("\\.");
+		String[] checkParts = checkVersion.split("\\.");
+
+		for (int i = 0; i < Math.min(currentParts.length, checkParts.length); i++) {
+			int current = Integer.parseInt(currentParts[i]);
+			int check = Integer.parseInt(checkParts[i]);
+			if (current < check) {
+				return true;
+			}
+		}
+		if (currentParts.length < checkParts.length) {
+			return true;
+		}
+
+		return false;
 	}
 
 }

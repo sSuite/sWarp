@@ -5,8 +5,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.ssuite.swarp.Main;
 import com.github.ssuite.swarp.Warp;
-import com.github.ssuite.swarp.WarpHandler;
 import com.github.ssuite.swarp.exception.NoSuchWarpException;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class RemoveCommand extends AbstractCommand {
 
@@ -24,18 +24,18 @@ public class RemoveCommand extends AbstractCommand {
 			return false;
 		}
 
-		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		WarpService warpService = getPlugin().getWarpService();
 		Warp targetWarp = null;
 
 		try {
-			targetWarp = warpHandler.getWarpByName(args[0]);
+			targetWarp = warpService.getWarpByName(args[0]);
 
 			if (!targetWarp.isOwner((Player) sender) && !sender.hasPermission("swarp.remove.all")) {
 				sender.sendMessage(ChatColor.RED + "You do not own that warp!");
 				return true;
 			}
 
-			warpHandler.removeWarp(args[0]);
+			warpService.removeWarp(args[0]);
 		} catch (NoSuchWarpException e) {
 			sender.sendMessage(
 					ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");

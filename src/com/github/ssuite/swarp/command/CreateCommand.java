@@ -6,9 +6,9 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.ssuite.swarp.Main;
-import com.github.ssuite.swarp.WarpHandler;
 import com.github.ssuite.swarp.exception.UnsafeWarpNameException;
 import com.github.ssuite.swarp.exception.WarpExistsException;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class CreateCommand extends AbstractCommand {
 
@@ -64,10 +64,10 @@ public class CreateCommand extends AbstractCommand {
 			}
 		}
 
-		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		WarpService warpService = getPlugin().getWarpService();
 
 		try {
-			warpHandler.createWarp(args[0], (Player) sender, isPublic, location);
+			warpService.createWarp(args[0], (Player) sender, isPublic, location);
 		} catch (UnsafeWarpNameException e) {
 			sender.sendMessage(ChatColor.RED
 					+ "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");

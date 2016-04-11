@@ -6,8 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.ssuite.swarp.Main;
 import com.github.ssuite.swarp.Warp;
-import com.github.ssuite.swarp.WarpHandler;
 import com.github.ssuite.swarp.exception.NoSuchWarpException;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class UninviteCommand extends AbstractCommand {
 
@@ -25,11 +25,11 @@ public class UninviteCommand extends AbstractCommand {
 			return false;
 		}
 
-		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		WarpService warpService = getPlugin().getWarpService();
 		Warp targetWarp = null;
 
 		try {
-			targetWarp = warpHandler.getWarpByName(args[1]);
+			targetWarp = warpService.getWarpByName(args[1]);
 		} catch (NoSuchWarpException e) {
 			sender.sendMessage(
 					ChatColor.RED + "The warp " + ChatColor.RESET + args[1] + ChatColor.RED + " doesn't exist!");

@@ -1,4 +1,4 @@
-package com.github.ssuite.swarp;
+package com.github.ssuite.swarp.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;

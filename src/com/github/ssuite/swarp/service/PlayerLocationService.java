@@ -1,20 +1,18 @@
-package com.github.ssuite.swarp;
+package com.github.ssuite.swarp.service;
 
 import java.util.Collection;
 import java.util.HashMap;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import com.github.ssuite.slib.utility.ChatUtility;
+import com.github.ssuite.swarp.Main;
 import com.github.ssuite.swarp.event.RequestAcceptEvent;
 import com.github.ssuite.swarp.event.RequestRejectEvent;
 import com.github.ssuite.swarp.event.RequestTimedOutEvent;
-import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_9_R1.IChatBaseComponent;
-import net.minecraft.server.v1_9_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
 
 public class PlayerLocationService implements Listener {
 	private Main plugin;
@@ -38,14 +36,11 @@ public class PlayerLocationService implements Listener {
 		String token = plugin.getRequestService().createToken((Player) source);
 		requests.put(token, new Player[] {source, target});
 
-		IChatBaseComponent comp = ChatSerializer.a("{\"text\":\"\", \"extra\": [{\"text\":\"" + source.getName()
+		ChatUtility.sendJSONMessage(target, "{\"text\":\"\", \"extra\": [{\"text\":\"" + source.getName()
 				+ "\", \"color\":\"gold\"}, \" wants to track you on their compass. \", {\"text\":\"[Accept]\", \"color\":\"dark_green\", \"clickEvent\":{\"action\":\"run_command\", \"value\":\"/swarp request accept "
 				+ token
 				+ "\"}, \"hoverEvent\":{\"action\":\"show_text\", \"value\":\"Click to accept request\"}}, \" \", {\"text\":\"[Reject]\", \"color\":\"dark_red\", \"clickEvent\":{\"action\":\"run_command\", \"value\":\"/swarp request reject "
 				+ token + "\"}, \"hoverEvent\":{\"action\":\"show_text\", \"value\":\"Click to reject request\"}}]}");
-
-		PacketPlayOutChat packet = new PacketPlayOutChat(comp);
-		((CraftPlayer) target).getHandle().playerConnection.sendPacket(packet);
 
 		return true;
 	}

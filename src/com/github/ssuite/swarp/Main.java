@@ -8,6 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.yaml.snakeyaml.scanner.ScannerException;
 import com.github.ssuite.slib.ConfigurationHandler;
+import com.github.ssuite.swarp.service.PlayerLocationService;
+import com.github.ssuite.swarp.service.RequestService;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class Main extends JavaPlugin {
 
@@ -17,7 +20,7 @@ public class Main extends JavaPlugin {
 	private BukkitScheduler scheduler;
 	public ConfigurationHandler warpDataHandler;
 
-	private WarpHandler warpHandler;
+	private WarpService warpService;
 	private PlayerLocationService playerLocationService;
 	private RequestService requestService;
 
@@ -31,7 +34,7 @@ public class Main extends JavaPlugin {
 		scheduleUpdateTask();
 
 		warpDataHandler = new ConfigurationHandler(this, "warps");
-		warpHandler = new WarpHandler(this);
+		warpService = new WarpService(this);
 		playerLocationService = new PlayerLocationService(this);
 		requestService = new RequestService(this);
 
@@ -71,7 +74,7 @@ public class Main extends JavaPlugin {
 			e.printStackTrace();
 		}
 
-		warpHandler.load();
+		warpService.load();
 
 		scheduleUpdateTask();
 
@@ -82,8 +85,8 @@ public class Main extends JavaPlugin {
 		return warpDataHandler;
 	}
 
-	public WarpHandler getWarpHandler() {
-		return warpHandler;
+	public WarpService getWarpService() {
+		return warpService;
 	}
 
 	public PlayerLocationService getPlayerLocationService() {

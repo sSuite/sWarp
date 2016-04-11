@@ -10,22 +10,23 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import com.github.ssuite.slib.utility.StringUtility;
 import com.github.ssuite.swarp.exception.UnsafeWarpNameException;
 import com.github.ssuite.swarp.exception.WorldMismatchException;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class Warp {
-	private WarpHandler warpHandler;
+	private WarpService warpService;
 	private String name;
 	private OfflinePlayer owner;
 	private boolean isPublic;
 	private ArrayList<String> invitedPlayers;
 	private Location location;
 
-	public Warp(WarpHandler warpHandler, String name, OfflinePlayer owner, boolean isPublic, Location location) {
-		this(warpHandler, name, owner, isPublic, location, new ArrayList<String>());
+	public Warp(WarpService warpService, String name, OfflinePlayer owner, boolean isPublic, Location location) {
+		this(warpService, name, owner, isPublic, location, new ArrayList<String>());
 	}
 
-	public Warp(WarpHandler warpHandler, String name, OfflinePlayer owner, boolean isPublic, Location location,
+	public Warp(WarpService warpService, String name, OfflinePlayer owner, boolean isPublic, Location location,
 			ArrayList<String> invitedPlayers) {
-		this.warpHandler = warpHandler;
+		this.warpService = warpService;
 		this.name = name;
 		this.owner = owner;
 		this.isPublic = isPublic;
@@ -47,7 +48,7 @@ public class Warp {
 		}
 
 		// Stop updates if compass is pointing to another player
-		warpHandler.getPlugin().getPlayerLocationService().cancelUpdate(player);
+		warpService.getPlugin().getPlayerLocationService().cancelUpdate(player);
 
 		player.setCompassTarget(location);
 	}
@@ -63,7 +64,7 @@ public class Warp {
 
 		this.name = name;
 
-		warpHandler.save();
+		warpService.save();
 	}
 
 	public OfflinePlayer getOwner() {
@@ -73,7 +74,7 @@ public class Warp {
 	public void setOwner(OfflinePlayer owner) {
 		this.owner = owner;
 
-		warpHandler.save();
+		warpService.save();
 	}
 
 	public boolean isOwner(OfflinePlayer player) {
@@ -104,7 +105,7 @@ public class Warp {
 
 		invitedPlayers.add(player.getUniqueId().toString());
 
-		warpHandler.save();
+		warpService.save();
 		return true;
 	}
 
@@ -123,7 +124,7 @@ public class Warp {
 	public void setLocation(Location location) {
 		this.location = location;
 
-		warpHandler.save();
+		warpService.save();
 	}
 
 }

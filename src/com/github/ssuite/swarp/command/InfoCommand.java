@@ -5,8 +5,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import com.github.ssuite.swarp.Main;
 import com.github.ssuite.swarp.Warp;
-import com.github.ssuite.swarp.WarpHandler;
 import com.github.ssuite.swarp.exception.NoSuchWarpException;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class InfoCommand extends AbstractCommand {
 
@@ -24,10 +24,10 @@ public class InfoCommand extends AbstractCommand {
 			return false;
 		}
 
-		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		WarpService warpService = getPlugin().getWarpService();
 
 		try {
-			Warp targetWarp = warpHandler.getWarpByName(args[0]);
+			Warp targetWarp = warpService.getWarpByName(args[0]);
 
 			sender.sendMessage(ChatColor.GOLD + "Warp information for " + ChatColor.AQUA + targetWarp.getName()
 					+ ChatColor.GOLD + ":");

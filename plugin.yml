@@ -1,7 +1,7 @@
 name: sWarp
 author: Smiley43210
 main: com.github.ssuite.swarp.Main
-version: 1.1.0
+version: 1.1.1
 depend: [sLib]
 commands:
   swarp:

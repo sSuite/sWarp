@@ -5,9 +5,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.ssuite.swarp.Main;
 import com.github.ssuite.swarp.Warp;
-import com.github.ssuite.swarp.WarpHandler;
 import com.github.ssuite.swarp.exception.NoSuchWarpException;
 import com.github.ssuite.swarp.exception.WorldMismatchException;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class GoCommand extends AbstractCommand {
 
@@ -30,11 +30,11 @@ public class GoCommand extends AbstractCommand {
 			return false;
 		}
 
-		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		WarpService warpService = getPlugin().getWarpService();
 		Warp targetWarp = null;
 
 		try {
-			targetWarp = warpHandler.getWarpByName(args[0]);
+			targetWarp = warpService.getWarpByName(args[0]);
 
 			if (!targetWarp.isPublic() && !targetWarp.isOwner((Player) sender) && !targetWarp.isInvited((Player) sender)
 					&& !sender.hasPermission("swarp.go.all")) {

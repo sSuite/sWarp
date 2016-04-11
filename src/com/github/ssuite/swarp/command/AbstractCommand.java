@@ -37,7 +37,7 @@ public abstract class AbstractCommand {
 
 	/**
 	 * Individual flags are characterized as any alphabetic character
-	 * immediately preceeded by the <code>flagCharacter</code>. Multiple flags
+	 * immediately preceded by the <code>flagCharacter</code>. Multiple flags
 	 * can be specified with only one <code>flagCharacter</code> if they
 	 * immediately follow the alphabetic character. Processes any flags found in
 	 * the command arguments, stores them internally, and returns the arguments

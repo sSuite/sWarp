@@ -8,7 +8,7 @@ import com.github.ssuite.slib.utility.MonospaceUtility;
 import com.github.ssuite.slib.utility.NumberUtility;
 import com.github.ssuite.swarp.Main;
 import com.github.ssuite.swarp.Warp;
-import com.github.ssuite.swarp.WarpHandler;
+import com.github.ssuite.swarp.service.WarpService;
 
 public class ListCommand extends AbstractCommand {
 
@@ -38,13 +38,13 @@ public class ListCommand extends AbstractCommand {
 			}
 		}
 
-		WarpHandler warpHandler = getPlugin().getWarpHandler();
+		WarpService warpService = getPlugin().getWarpService();
 		Warp[] warps;
 
 		if (sender instanceof Player) {
-			warps = warpHandler.getAllWarps((Player) sender);
+			warps = warpService.getAllWarps((Player) sender);
 		} else {
-			warps = warpHandler.getAllWarps();
+			warps = warpService.getAllWarps();
 		}
 
 		if (warps.length == 0) {

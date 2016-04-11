@@ -1,10 +1,10 @@
 package com.github.ssuite.swarp.command;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.ssuite.swarp.Main;
-import com.github.ssuite.swarp.RequestService;
-import net.md_5.bungee.api.ChatColor;
+import com.github.ssuite.swarp.service.RequestService;
 
 public class RequestCommand extends AbstractCommand {
 
