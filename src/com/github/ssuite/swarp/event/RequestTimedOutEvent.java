@@ -8,25 +8,25 @@ public class RequestTimedOutEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
 	private Player sourcePlayer;
 	private String token;
-
+	
 	public RequestTimedOutEvent(Player source, String token) {
 		sourcePlayer = source;
 		this.token = token;
 	}
-
+	
 	public Player getSourcePlayer() {
 		return sourcePlayer;
 	}
-
+	
 	public String getToken() {
 		return token;
 	}
-
+	
 	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}
-
+	
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}

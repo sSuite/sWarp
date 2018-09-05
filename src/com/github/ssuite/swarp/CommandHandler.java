@@ -1,45 +1,33 @@
 package com.github.ssuite.swarp;
 
+import com.github.ssuite.slib.utility.CommandHelpUtility;
+import com.github.ssuite.swarp.command.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import com.github.ssuite.slib.utility.CommandHelpUtility;
-import com.github.ssuite.swarp.command.AbstractCommand;
-import com.github.ssuite.swarp.command.CreateCommand;
-import com.github.ssuite.swarp.command.GoCommand;
-import com.github.ssuite.swarp.command.InfoCommand;
-import com.github.ssuite.swarp.command.InviteCommand;
-import com.github.ssuite.swarp.command.ListCommand;
-import com.github.ssuite.swarp.command.ModifyCommand;
-import com.github.ssuite.swarp.command.PlayerCommand;
-import com.github.ssuite.swarp.command.PointCommand;
-import com.github.ssuite.swarp.command.ReloadCommand;
-import com.github.ssuite.swarp.command.RemoveCommand;
-import com.github.ssuite.swarp.command.RequestCommand;
-import com.github.ssuite.swarp.command.UninviteCommand;
 
 public class CommandHandler implements CommandExecutor {
-
+	
 	private static final char FLAG_CHARACTER = '-';
-
+	
 	private Main plugin;
-
+	
 	public CommandHandler(Main plugin) {
 		this.plugin = plugin;
 	}
-
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (args.length < 1) {
 			showHelp(sender);
 			return true;
 		}
-
+		
 		String[] newArgs = new String[args.length - 1];
 		for (int i = 1; i < args.length; i++) {
 			newArgs[i - 1] = args[i];
 		}
-
+		
 		AbstractCommand commandClass;
 		switch (args[0].toLowerCase()) {
 			case "reload":
@@ -82,15 +70,15 @@ public class CommandHandler implements CommandExecutor {
 				showHelp(sender);
 				return true;
 		}
-
+		
 		newArgs = commandClass.doFlagProcessing(newArgs, FLAG_CHARACTER);
-
+		
 		if (!commandClass.execute(sender, newArgs)) {
 			showHelp(sender);
 		}
 		return true;
 	}
-
+	
 	private void showHelp(CommandSender sender) {
 		CommandHelpUtility.sendHeader("sWarp Help", sender);
 		CommandHelpUtility.sendCommand("/swarp reload", "Reloads the configuration files", sender, "swarp.reload");
@@ -114,5 +102,5 @@ public class CommandHandler implements CommandExecutor {
 				"Sets your compass to point to the player, if the player accepts the request. If -s or --silent is specified, the request is not sent",
 				sender, "swarp.player");
 	}
-
+	
 }
