@@ -1,8 +1,8 @@
 package com.github.ssuite.swarp;
 
 import com.github.ssuite.slib.ConfigurationHandler;
+import com.github.ssuite.slib.service.RequestService;
 import com.github.ssuite.swarp.service.PlayerLocationService;
-import com.github.ssuite.swarp.service.RequestService;
 import com.github.ssuite.swarp.service.WarpService;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;

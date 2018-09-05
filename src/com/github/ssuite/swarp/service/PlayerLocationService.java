@@ -1,10 +1,10 @@
 package com.github.ssuite.swarp.service;
 
+import com.github.ssuite.slib.event.RequestAcceptEvent;
+import com.github.ssuite.slib.event.RequestRejectEvent;
+import com.github.ssuite.slib.event.RequestTimedOutEvent;
 import com.github.ssuite.slib.utility.ChatUtility;
 import com.github.ssuite.swarp.Main;
-import com.github.ssuite.swarp.event.RequestAcceptEvent;
-import com.github.ssuite.swarp.event.RequestRejectEvent;
-import com.github.ssuite.swarp.event.RequestTimedOutEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

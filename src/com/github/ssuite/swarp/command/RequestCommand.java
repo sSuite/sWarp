@@ -1,7 +1,7 @@
 package com.github.ssuite.swarp.command;
 
+import com.github.ssuite.slib.service.RequestService;
 import com.github.ssuite.swarp.Main;
-import com.github.ssuite.swarp.service.RequestService;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
