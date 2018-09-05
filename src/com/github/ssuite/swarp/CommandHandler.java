@@ -99,7 +99,7 @@ public class CommandHandler implements CommandExecutor {
 		CommandHelpUtility.sendCommand("/swarp info <name>", "Provides information about the named warp", sender,
 				"swarp.info");
 		CommandHelpUtility.sendCommand("/swarp player [-s|--silent] <player>",
-				"Sets your compass to point to the player, if the player accepts the request. If -s or --silent is specified, the request is not sent",
+				"Sets your compass to point to the player, if the player accepts the request. If -s or --silent is specified, tracks the player without a request",
 				sender, "swarp.player");
 	}
 	

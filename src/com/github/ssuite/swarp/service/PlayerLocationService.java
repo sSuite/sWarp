@@ -34,13 +34,13 @@ public class PlayerLocationService implements Listener {
 			}
 		}
 		
-		String token = plugin.getRequestService().createToken((Player) source);
+		String token = plugin.getRequestService().createToken(source, 30);
 		requests.put(token, new Player[]{source, target});
 		
 		ChatUtility.sendJSONMessage(target, "{\"text\":\"\", \"extra\": [{\"text\":\"" + source.getName() +
-				"\", \"color\":\"gold\"}, \" wants to track you on their compass. \", {\"text\":\"[Accept]\", \"color\":\"dark_green\", \"clickEvent\":{\"action\":\"run_command\", \"value\":\"/swarp request accept " +
+				"\", \"color\":\"gold\"}, \" wants to track you on their compass.\\nClick to \", {\"text\":\"[Accept]\", \"color\":\"dark_green\", \"clickEvent\":{\"action\":\"run_command\", \"value\":\"/swarp request accept " +
 				token +
-				"\"}, \"hoverEvent\":{\"action\":\"show_text\", \"value\":\"Click to accept request\"}}, \" \", {\"text\":\"[Reject]\", \"color\":\"dark_red\", \"clickEvent\":{\"action\":\"run_command\", \"value\":\"/swarp request reject " +
+				"\"}, \"hoverEvent\":{\"action\":\"show_text\", \"value\":\"Click to accept request\"}}, \" or \", {\"text\":\"[Reject]\", \"color\":\"dark_red\", \"clickEvent\":{\"action\":\"run_command\", \"value\":\"/swarp request reject " +
 				token + "\"}, \"hoverEvent\":{\"action\":\"show_text\", \"value\":\"Click to reject request\"}}]}");
 		
 		return true;
@@ -74,11 +74,13 @@ public class PlayerLocationService implements Listener {
 		if (requests.containsKey(token)) {
 			Player[] players = requests.remove(token);
 			players[0].sendMessage(
-					ChatColor.GOLD + players[1].getName() + ChatColor.GREEN + " has accepted the tracking request!" +
-							ChatColor.RESET + " Use " + ChatColor.GOLD + "/swarp player" + ChatColor.RESET +
+					ChatColor.GOLD + players[1].getName() + ChatColor.RESET + " has " + ChatColor.GREEN + "accepted" +
+							ChatColor.RESET + " your tracking request! Your compass is now tracking their location." +
+							ChatColor.RESET + "\nUse " + ChatColor.GOLD + "/swarp player" + ChatColor.RESET +
 							" to stop tracking.");
-			players[1].sendMessage(ChatColor.GREEN + "You have accepted the tracking request from " + ChatColor.GOLD +
-					players[0].getName() + ChatColor.GREEN + "!");
+			players[1].sendMessage(
+					"You have " + ChatColor.GREEN + "accepted" + ChatColor.RESET + " the tracking request from " +
+							ChatColor.GOLD + players[0].getName() + ChatColor.RESET + "!");
 			registerUpdate(players[0], players[1]);
 		}
 	}
@@ -90,9 +92,11 @@ public class PlayerLocationService implements Listener {
 		if (requests.containsKey(token)) {
 			Player[] players = requests.remove(token);
 			players[0].sendMessage(
-					ChatColor.GOLD + players[1].getName() + ChatColor.GREEN + " has rejected the tracking request!");
-			players[1].sendMessage(ChatColor.GREEN + "You have rejected the tracking request from " + ChatColor.GOLD +
-					players[0].getName() + ChatColor.GREEN + "!");
+					ChatColor.GOLD + players[1].getName() + ChatColor.RESET + " has " + ChatColor.RED + "rejected" +
+							ChatColor.RESET + " your tracking request!");
+			players[1].sendMessage(
+					"You have " + ChatColor.RED + "rejected" + ChatColor.RESET + " the tracking request from " +
+							ChatColor.GOLD + players[0].getName() + ChatColor.RESET + "!");
 		}
 	}
 	
@@ -102,9 +106,11 @@ public class PlayerLocationService implements Listener {
 		
 		if (requests.containsKey(token)) {
 			Player[] players = requests.remove(token);
-			players[0].sendMessage(
-					ChatColor.GOLD + players[1].getName() + ChatColor.GREEN + " failed to respond in time!");
-			players[1].sendMessage(ChatColor.RED + "You failed to respond to the tracking request in time!");
+			players[0].sendMessage(ChatColor.GOLD + players[1].getName() + ChatColor.RED +
+					" did not respond to your tracking request in time!");
+			players[1].sendMessage(
+					ChatColor.RED + "You did not respond to the tracking request from " + ChatColor.GOLD +
+							players[0].getName() + ChatColor.RED + " in time!");
 		}
 	}
 }

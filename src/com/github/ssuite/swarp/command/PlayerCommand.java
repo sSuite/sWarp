@@ -51,7 +51,7 @@ public class PlayerCommand extends AbstractCommand {
 		if (args.length == 0) {
 			getPlugin().getPlayerLocationService().cancelUpdate((Player) sender);
 			
-			sender.sendMessage(ChatColor.GREEN + "Stopped tracking!");
+			sender.sendMessage(ChatColor.GREEN + "Your compass now points to the world spawn location!");
 		} else {
 			Player targetPlayer;
 			try {
@@ -73,9 +73,17 @@ public class PlayerCommand extends AbstractCommand {
 								ChatColor.RED + "You do not have sufficient permissions to track players silently!");
 					}
 				} else {
-					getPlugin().getPlayerLocationService().requestTrack((Player) sender, targetPlayer);
-					sender.sendMessage("Sent " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET +
-							" a tracking request.");
+					boolean success = getPlugin().getPlayerLocationService().requestTrack((Player) sender,
+							targetPlayer);
+					
+					if (success) {
+						sender.sendMessage("Sent " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET +
+								" a tracking request.");
+					} else {
+						sender.sendMessage(
+								ChatColor.RED + "You already have a pending tracking request with " + ChatColor.GOLD +
+										targetPlayer.getName() + ChatColor.RED + "!");
+					}
 				}
 			} catch (AmbiguousPlayerNameException e) {
 				sender.sendMessage(e.getFormattedMessage());

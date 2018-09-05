@@ -32,9 +32,8 @@ public class PointCommand extends AbstractCommand {
 		
 		if (args.length == 0) {
 			getPlugin().getPlayerLocationService().cancelUpdate((Player) sender);
-			((Player) sender).setCompassTarget(((Player) sender).getWorld().getSpawnLocation());
 			
-			sender.sendMessage(ChatColor.GREEN + "Restored compass location!");
+			sender.sendMessage(ChatColor.GREEN + "Your compass now points to the world spawn location!");
 		} else {
 			
 			WarpService warpService = getPlugin().getWarpService();
