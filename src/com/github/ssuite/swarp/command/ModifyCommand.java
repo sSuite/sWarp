@@ -69,9 +69,9 @@ public class ModifyCommand extends AbstractCommand {
 				
 				break;
 			case "location":
-				if (args.length != 2) {
+				if (args.length == 2) {
 					location = ((Player) sender).getLocation();
-				} else if (args.length != 5) {
+				} else if (args.length == 5) {
 					try {
 						location = new Location(((Player) sender).getWorld(), Double.parseDouble(args[2]),
 								Double.parseDouble(args[3]), Double.parseDouble(args[4]));
