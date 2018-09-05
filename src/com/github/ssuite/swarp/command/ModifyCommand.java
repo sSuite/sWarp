@@ -209,18 +209,17 @@ public class ModifyCommand extends AbstractCommand {
 	}
 	
 	public void showHelp(CommandSender sender) {
-		CommandHelpUtility.sendHeader("/swarp modify Help", sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> name <newName>", "Sets the name of the warp", sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> location", "Sets the location of the warp", sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> location <x> <y> <z>", "Sets the location of the warp",
+		CommandHelpUtility.sendHeader("/swarp edit Help", sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> name <newName>", "Sets the name of the warp", sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> location", "Sets the location of the warp", sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> location <x> <y> <z>", "Sets the location of the warp",
 				sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> public", "Makes the warp public", sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> private", "Makes the warp private", sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> owner <player>", "Sets the owner of the warp", sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> pitch <pitch>", "Sets the pitch, in degrees, of the warp",
+		CommandHelpUtility.sendCommand("/swarp edit <name> public", "Makes the warp public", sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> private", "Makes the warp private", sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> owner <player>", "Sets the owner of the warp", sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> pitch <pitch>", "Sets the pitch, in degrees, of the warp",
 				sender);
-		CommandHelpUtility.sendCommand("/swarp modify <name> yaw <yaw>", "Sets the yaw, in degrees, of the warp",
-				sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> yaw <yaw>", "Sets the yaw, in degrees, of the warp", sender);
 	}
 	
 }

@@ -48,7 +48,7 @@ public class CommandHandler implements CommandExecutor {
 			case "uninvite":
 				commandClass = new UninviteCommand(plugin, "invite");
 				break;
-			case "modify":
+			case "edit":
 				commandClass = new ModifyCommand(plugin, "modify");
 				break;
 			case "go":
@@ -91,7 +91,7 @@ public class CommandHandler implements CommandExecutor {
 				"swarp.invite");
 		CommandHelpUtility.sendCommand("/swarp uninvite <player> <name>", "Uninvites the player from the named warp",
 				sender, "swarp.invite");
-		CommandHelpUtility.sendCommand("/swarp modify <name>", "Modifies the named warp", sender, "swarp.modify");
+		CommandHelpUtility.sendCommand("/swarp edit <name>", "Edits the named warp", sender, "swarp.modify");
 		CommandHelpUtility.sendCommand("/swarp go <name>", "Teleports to the named warp", sender, "swarp.go");
 		CommandHelpUtility.sendCommand("/swarp point [name]",
 				"Sets your compass to point to the named warp or resets it if no warp is specified", sender,
