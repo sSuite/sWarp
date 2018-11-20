@@ -87,17 +87,14 @@ public class CommandHandler implements CommandExecutor {
 				"Creates a warp at your current location or the location specified. The warp is public unless -p or --private is specified",
 				sender, "swarp.create");
 		CommandHelpUtility.sendCommand("/swarp remove <name>", "Removes the named warp", sender, "swarp.remove");
-		CommandHelpUtility.sendCommand("/swarp invite <player> <name>", "Invites the player to the named warp", sender,
+		CommandHelpUtility.sendCommand("/swarp invite <player> <name>", "Invites the player to the named warp", sender, "swarp.invite");
+		CommandHelpUtility.sendCommand("/swarp uninvite <player> <name>", "Uninvites the player from the named warp", sender,
 				"swarp.invite");
-		CommandHelpUtility.sendCommand("/swarp uninvite <player> <name>", "Uninvites the player from the named warp",
-				sender, "swarp.invite");
 		CommandHelpUtility.sendCommand("/swarp edit <name>", "Edits the named warp", sender, "swarp.modify");
 		CommandHelpUtility.sendCommand("/swarp go <name>", "Teleports to the named warp", sender, "swarp.go");
 		CommandHelpUtility.sendCommand("/swarp point [name]",
-				"Sets your compass to point to the named warp or resets it if no warp is specified", sender,
-				"swarp.point");
-		CommandHelpUtility.sendCommand("/swarp info <name>", "Provides information about the named warp", sender,
-				"swarp.info");
+				"Sets your compass to point to the named warp or resets it if no warp is specified", sender, "swarp.point");
+		CommandHelpUtility.sendCommand("/swarp info <name>", "Provides information about the named warp", sender, "swarp.info");
 		CommandHelpUtility.sendCommand("/swarp player [-s|--silent] <player>",
 				"Sets your compass to point to the player, if the player accepts the request. If -s or --silent is specified, tracks the player without a request",
 				sender, "swarp.player");

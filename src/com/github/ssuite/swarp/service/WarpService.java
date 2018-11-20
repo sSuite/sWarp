@@ -52,16 +52,15 @@ public class WarpService {
 			ConfigurationSection warpSection = configuration.getConfigurationSection(warpNames.get(i));
 			
 			World world = plugin.getServer().getWorld(warpSection.getString("world"));
-			Location location = new Location(world, warpSection.getDouble("x"), warpSection.getDouble("y"),
-					warpSection.getDouble("z"), (float) warpSection.getDouble("yaw"),
-					(float) warpSection.getDouble("pitch"));
+			Location location = new Location(world, warpSection.getDouble("x"), warpSection.getDouble("y"), warpSection.getDouble("z"),
+					(float) warpSection.getDouble("yaw"), (float) warpSection.getDouble("pitch"));
 			
 			ArrayList<String> invitedPlayers = new ArrayList<String>();
 			invitedPlayers.addAll(warpSection.getStringList("invitees"));
 			
 			warps[i] = new Warp(this, warpNames.get(i),
-					Bukkit.getServer().getOfflinePlayer(UUID.fromString(warpSection.getString("owner"))),
-					warpSection.getBoolean("public"), location, invitedPlayers);
+					Bukkit.getServer().getOfflinePlayer(UUID.fromString(warpSection.getString("owner"))), warpSection.getBoolean("public"),
+					location, invitedPlayers);
 		}
 		
 		save();

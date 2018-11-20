@@ -36,8 +36,7 @@ public class ModifyCommand extends AbstractCommand {
 		try {
 			targetWarp = warpService.getWarpByName(args[0]);
 		} catch (NoSuchWarpException e) {
-			sender.sendMessage(
-					ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
+			sender.sendMessage(ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
 			return true;
 		}
 		
@@ -60,12 +59,12 @@ public class ModifyCommand extends AbstractCommand {
 				try {
 					targetWarp.setName(args[2]);
 				} catch (UnsafeWarpNameException e1) {
-					sender.sendMessage(ChatColor.RED +
-							"The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
+					sender.sendMessage(
+							ChatColor.RED + "The warp name must only consist of characters from the character set [A-Za-z0-9-_]!");
 				}
 				
-				sender.sendMessage(ChatColor.GREEN + "Renamed " + ChatColor.AQUA + oldName + ChatColor.GREEN + " to " +
-						ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
+				sender.sendMessage(ChatColor.GREEN + "Renamed " + ChatColor.AQUA + oldName + ChatColor.GREEN + " to " + ChatColor.AQUA +
+						targetWarp.getName() + ChatColor.GREEN + "!");
 				
 				break;
 			case "location":
@@ -73,12 +72,11 @@ public class ModifyCommand extends AbstractCommand {
 					location = ((Player) sender).getLocation();
 				} else if (args.length == 5) {
 					try {
-						location = new Location(((Player) sender).getWorld(), Double.parseDouble(args[2]),
-								Double.parseDouble(args[3]), Double.parseDouble(args[4]));
+						location = new Location(((Player) sender).getWorld(), Double.parseDouble(args[2]), Double.parseDouble(args[3]),
+								Double.parseDouble(args[4]));
 					} catch (NumberFormatException e) {
-						sender.sendMessage(
-								ChatColor.RED + "The coordinates " + args[2] + ", " + args[3] + ", " + args[4] +
-										" are not valid coordinates!");
+						sender.sendMessage(ChatColor.RED + "The coordinates " + args[2] + ", " + args[3] + ", " + args[4] +
+								" are not valid coordinates!");
 						return true;
 					}
 				} else {
@@ -89,8 +87,7 @@ public class ModifyCommand extends AbstractCommand {
 				targetWarp.setLocation(location);
 				
 				sender.sendMessage(
-						ChatColor.GREEN + "Changed the location of " + ChatColor.AQUA + targetWarp.getName() +
-								ChatColor.GREEN + "!");
+						ChatColor.GREEN + "Changed the location of " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
 				
 				break;
 			case "public":
@@ -104,8 +101,7 @@ public class ModifyCommand extends AbstractCommand {
 				} else {
 					targetWarp.setPublic(true);
 					sender.sendMessage(
-							ChatColor.GREEN + "Made " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN +
-									" a public warp!");
+							ChatColor.GREEN + "Made " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + " a public warp!");
 				}
 				
 				break;
@@ -120,8 +116,7 @@ public class ModifyCommand extends AbstractCommand {
 				} else {
 					targetWarp.setPublic(false);
 					sender.sendMessage(
-							ChatColor.GREEN + "Made " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN +
-									" a private warp!");
+							ChatColor.GREEN + "Made " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + " a private warp!");
 				}
 				
 				break;
@@ -142,8 +137,7 @@ public class ModifyCommand extends AbstractCommand {
 				}
 				
 				if (targetPlayer == null) {
-					sender.sendMessage(
-							ChatColor.RED + "That player has never logged in to the server and so could not be found!");
+					sender.sendMessage(ChatColor.RED + "That player has never logged in to the server and so could not be found!");
 					return true;
 				}
 				
@@ -155,8 +149,9 @@ public class ModifyCommand extends AbstractCommand {
 				// ChatColor.GOLD + targetPlayer.getName()
 				// + ChatColor.YELLOW + "? Repeat the command to confirm.");
 				
-				sender.sendMessage(ChatColor.GREEN + "Changed the owner of " + ChatColor.AQUA + targetWarp.getName() +
-						ChatColor.GREEN + " to " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.GREEN + "!");
+				sender.sendMessage(
+						ChatColor.GREEN + "Changed the owner of " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + " to " +
+								ChatColor.GOLD + targetPlayer.getName() + ChatColor.GREEN + "!");
 				
 				break;
 			case "pitch":
@@ -176,8 +171,9 @@ public class ModifyCommand extends AbstractCommand {
 				location.setPitch(pitch);
 				targetWarp.setLocation(location);
 				
-				sender.sendMessage(ChatColor.GREEN + "Changed the pitch of " + ChatColor.AQUA + targetWarp.getName() +
-						ChatColor.GREEN + " to " + ChatColor.GOLD + pitch + ChatColor.GREEN + "!");
+				sender.sendMessage(
+						ChatColor.GREEN + "Changed the pitch of " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + " to " +
+								ChatColor.GOLD + pitch + ChatColor.GREEN + "!");
 				
 				break;
 			case "yaw":
@@ -197,8 +193,9 @@ public class ModifyCommand extends AbstractCommand {
 				location.setYaw(yaw);
 				targetWarp.setLocation(location);
 				
-				sender.sendMessage(ChatColor.GREEN + "Changed the yaw of " + ChatColor.AQUA + targetWarp.getName() +
-						ChatColor.GREEN + " to " + ChatColor.GOLD + yaw + ChatColor.GREEN + "!");
+				sender.sendMessage(
+						ChatColor.GREEN + "Changed the yaw of " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + " to " +
+								ChatColor.GOLD + yaw + ChatColor.GREEN + "!");
 				
 				break;
 			default:
@@ -212,13 +209,11 @@ public class ModifyCommand extends AbstractCommand {
 		CommandHelpUtility.sendHeader("/swarp edit Help", sender);
 		CommandHelpUtility.sendCommand("/swarp edit <name> name <newName>", "Sets the name of the warp", sender);
 		CommandHelpUtility.sendCommand("/swarp edit <name> location", "Sets the location of the warp", sender);
-		CommandHelpUtility.sendCommand("/swarp edit <name> location <x> <y> <z>", "Sets the location of the warp",
-				sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> location <x> <y> <z>", "Sets the location of the warp", sender);
 		CommandHelpUtility.sendCommand("/swarp edit <name> public", "Makes the warp public", sender);
 		CommandHelpUtility.sendCommand("/swarp edit <name> private", "Makes the warp private", sender);
 		CommandHelpUtility.sendCommand("/swarp edit <name> owner <player>", "Sets the owner of the warp", sender);
-		CommandHelpUtility.sendCommand("/swarp edit <name> pitch <pitch>", "Sets the pitch, in degrees, of the warp",
-				sender);
+		CommandHelpUtility.sendCommand("/swarp edit <name> pitch <pitch>", "Sets the pitch, in degrees, of the warp", sender);
 		CommandHelpUtility.sendCommand("/swarp edit <name> yaw <yaw>", "Sets the yaw, in degrees, of the warp", sender);
 	}
 	

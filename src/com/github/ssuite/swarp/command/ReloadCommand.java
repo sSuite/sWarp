@@ -21,8 +21,7 @@ public class ReloadCommand extends AbstractCommand {
 		}
 		
 		if (!getPlugin().reloadCustomConfig()) {
-			sender.sendMessage(
-					ChatColor.RED + "Plugin configuration failed to reload! Check the console for the stack trace!");
+			sender.sendMessage(ChatColor.RED + "Plugin configuration failed to reload! Check the console for the stack trace!");
 			return true;
 		}
 		sender.sendMessage(ChatColor.GREEN + "Plugin configuration reloaded!");

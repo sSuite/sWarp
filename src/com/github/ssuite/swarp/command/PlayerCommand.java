@@ -66,23 +66,19 @@ public class PlayerCommand extends AbstractCommand {
 					if (hasSubPermission(sender, "silent")) {
 						getPlugin().getPlayerLocationService().registerUpdate((Player) sender, targetPlayer);
 						sender.sendMessage(
-								"Use " + ChatColor.GOLD + "/swarp player" + ChatColor.RESET + " to stop tracking " +
-										ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET + ".");
+								"Use " + ChatColor.GOLD + "/swarp player" + ChatColor.RESET + " to stop tracking " + ChatColor.GOLD +
+										targetPlayer.getName() + ChatColor.RESET + ".");
 					} else {
-						sender.sendMessage(
-								ChatColor.RED + "You do not have sufficient permissions to track players silently!");
+						sender.sendMessage(ChatColor.RED + "You do not have sufficient permissions to track players silently!");
 					}
 				} else {
-					boolean success = getPlugin().getPlayerLocationService().requestTrack((Player) sender,
-							targetPlayer);
+					boolean success = getPlugin().getPlayerLocationService().requestTrack((Player) sender, targetPlayer);
 					
 					if (success) {
-						sender.sendMessage("Sent " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET +
-								" a tracking request.");
+						sender.sendMessage("Sent " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET + " a tracking request.");
 					} else {
-						sender.sendMessage(
-								ChatColor.RED + "You already have a pending tracking request with " + ChatColor.GOLD +
-										targetPlayer.getName() + ChatColor.RED + "!");
+						sender.sendMessage(ChatColor.RED + "You already have a pending tracking request with " + ChatColor.GOLD +
+								targetPlayer.getName() + ChatColor.RED + "!");
 					}
 				}
 			} catch (AmbiguousPlayerNameException e) {

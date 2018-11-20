@@ -61,25 +61,23 @@ public class ListCommand extends AbstractCommand {
 		}
 		
 		sender.sendMessage(CommandHelpUtility.createHeader(
-				"sWarp Warp List (" + ChatColor.GOLD + page + ChatColor.RESET + "/" + ChatColor.GOLD + pages +
-						ChatColor.RESET + ")", sender));
+				"sWarp Warp List (" + ChatColor.GOLD + page + ChatColor.RESET + "/" + ChatColor.GOLD + pages + ChatColor.RESET + ")",
+				sender));
 		for (int i = (page - 1) * ENTRIES_PER_PAGE; i < page * ENTRIES_PER_PAGE && i < warps.length; i++) {
 			Warp warp = warps[i];
-			String info = ChatColor.AQUA + warp.getName() + ChatColor.RESET + " by " + ChatColor.GOLD +
-					warp.getOwner().getName() + ChatColor.RESET;
+			String info = ChatColor.AQUA + warp.getName() + ChatColor.RESET + " by " + ChatColor.GOLD + warp.getOwner().getName() +
+					ChatColor.RESET;
 			String location = "@ " + NumberUtility.roundString(warp.getLocation().getX()) + ", " +
-					NumberUtility.roundString(warp.getLocation().getY()) + ", " +
-					NumberUtility.roundString(warp.getLocation().getZ()) + " in " + ChatColor.GOLD +
-					warp.getLocation().getWorld().getName();
+					NumberUtility.roundString(warp.getLocation().getY()) + ", " + NumberUtility.roundString(warp.getLocation().getZ()) +
+					" in " + ChatColor.GOLD + warp.getLocation().getWorld().getName();
 			
 			sender.sendMessage(MonospaceUtility.fillToWidthWithString(info, " ",
 					(sender instanceof Player ? MonospaceUtility.DEFAULT_CLIENT_WIDTH : MonospaceUtility.DEFAULT_MONOSPACE_WIDTH) -
-							MonospaceUtility.getStringWidth(location, !(sender instanceof Player)),
-					!(sender instanceof Player)) + location);
+							MonospaceUtility.getStringWidth(location, !(sender instanceof Player)), !(sender instanceof Player)) +
+					location);
 		}
 		if (page < pages) {
-			sender.sendMessage("Use " + ChatColor.YELLOW + "/swarp list " + (page + 1) + ChatColor.RESET +
-					" to see the next page.");
+			sender.sendMessage("Use " + ChatColor.YELLOW + "/swarp list " + (page + 1) + ChatColor.RESET + " to see the next page.");
 		}
 		
 		return true;

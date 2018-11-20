@@ -37,13 +37,11 @@ public class RemoveCommand extends AbstractCommand {
 			
 			warpService.removeWarp(args[0]);
 		} catch (NoSuchWarpException e) {
-			sender.sendMessage(
-					ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
+			sender.sendMessage(ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
 			return true;
 		}
 		
-		sender.sendMessage(
-				ChatColor.GREEN + "Removed warp " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
+		sender.sendMessage(ChatColor.GREEN + "Removed warp " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
 		
 		return true;
 	}

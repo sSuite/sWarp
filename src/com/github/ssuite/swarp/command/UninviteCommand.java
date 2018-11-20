@@ -31,8 +31,7 @@ public class UninviteCommand extends AbstractCommand {
 		try {
 			targetWarp = warpService.getWarpByName(args[1]);
 		} catch (NoSuchWarpException e) {
-			sender.sendMessage(
-					ChatColor.RED + "The warp " + ChatColor.RESET + args[1] + ChatColor.RED + " doesn't exist!");
+			sender.sendMessage(ChatColor.RED + "The warp " + ChatColor.RESET + args[1] + ChatColor.RED + " doesn't exist!");
 			return true;
 		}
 		
@@ -53,11 +52,11 @@ public class UninviteCommand extends AbstractCommand {
 		
 		if (targetPlayer != null && targetWarp.uninvitePlayer(targetPlayer)) {
 			sender.sendMessage(
-					ChatColor.GREEN + "Uninvited " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET +
-							" from " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
+					ChatColor.GREEN + "Uninvited " + ChatColor.GOLD + targetPlayer.getName() + ChatColor.RESET + " from " + ChatColor.AQUA +
+							targetWarp.getName() + ChatColor.GREEN + "!");
 		} else {
-			sender.sendMessage(ChatColor.GOLD + targetPlayer.getName() + ChatColor.RED + " has not been invited to " +
-					ChatColor.AQUA + targetWarp.getName() + ChatColor.RESET + "!");
+			sender.sendMessage(ChatColor.GOLD + targetPlayer.getName() + ChatColor.RED + " has not been invited to " + ChatColor.AQUA +
+					targetWarp.getName() + ChatColor.RESET + "!");
 		}
 		
 		return true;

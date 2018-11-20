@@ -36,8 +36,8 @@ public class GoCommand extends AbstractCommand {
 		try {
 			targetWarp = warpService.getWarpByName(args[0]);
 			
-			if (!targetWarp.isPublic() && !targetWarp.isOwner((Player) sender) &&
-					!targetWarp.isInvited((Player) sender) && !sender.hasPermission("swarp.go.all")) {
+			if (!targetWarp.isPublic() && !targetWarp.isOwner((Player) sender) && !targetWarp.isInvited((Player) sender) &&
+					!sender.hasPermission("swarp.go.all")) {
 				sender.sendMessage(ChatColor.RED + "You do not own that warp nor were you invited to it!");
 				return true;
 			}
@@ -45,18 +45,14 @@ public class GoCommand extends AbstractCommand {
 			targetWarp.teleportPlayer((Player) sender);
 		} catch (WorldMismatchException e) {
 			sender.sendMessage(
-					ChatColor.RED + "You must be in world " + ChatColor.RESET + e.getMessage() + ChatColor.RED +
-							" to use this warp!");
+					ChatColor.RED + "You must be in world " + ChatColor.RESET + e.getMessage() + ChatColor.RED + " to use this warp!");
 			return true;
 		} catch (NoSuchWarpException e) {
-			sender.sendMessage(
-					ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
+			sender.sendMessage(ChatColor.RED + "The warp " + ChatColor.RESET + args[0] + ChatColor.RED + " doesn't exist!");
 			return true;
 		}
 		
-		sender.sendMessage(
-				ChatColor.GREEN + "Teleported to warp " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN +
-						"!");
+		sender.sendMessage(ChatColor.GREEN + "Teleported to warp " + ChatColor.AQUA + targetWarp.getName() + ChatColor.GREEN + "!");
 		
 		return true;
 	}

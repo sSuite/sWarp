@@ -67,8 +67,7 @@ public class UpdateTask implements Runnable {
 				String pluginVersion = plugin.getDescription().getVersion();
 				
 				if (newer(pluginVersion, latestVersion)) {
-					plugin.getLogger().info(
-							"An update (current: " + pluginVersion + ", new: " + latestVersion + ") is now available!");
+					plugin.getLogger().info("An update (current: " + pluginVersion + ", new: " + latestVersion + ") is now available!");
 					plugin.getLogger().info("Download it from http://dev.bukkit.org/bukkit-plugins/swarp/");
 				} else {
 					plugin.getLogger().info("You have the latest version!");

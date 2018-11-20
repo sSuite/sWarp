@@ -74,13 +74,12 @@ public class PlayerLocationService implements Listener {
 		if (requests.containsKey(token)) {
 			Player[] players = requests.remove(token);
 			players[0].sendMessage(
-					ChatColor.GOLD + players[1].getName() + ChatColor.RESET + " has " + ChatColor.GREEN + "accepted" +
-							ChatColor.RESET + " your tracking request! Your compass is now tracking their location." +
-							ChatColor.RESET + "\nUse " + ChatColor.GOLD + "/swarp player" + ChatColor.RESET +
-							" to stop tracking.");
+					ChatColor.GOLD + players[1].getName() + ChatColor.RESET + " has " + ChatColor.GREEN + "accepted" + ChatColor.RESET +
+							" your tracking request! Your compass is now tracking their location." + ChatColor.RESET + "\nUse " +
+							ChatColor.GOLD + "/swarp player" + ChatColor.RESET + " to stop tracking.");
 			players[1].sendMessage(
-					"You have " + ChatColor.GREEN + "accepted" + ChatColor.RESET + " the tracking request from " +
-							ChatColor.GOLD + players[0].getName() + ChatColor.RESET + "!");
+					"You have " + ChatColor.GREEN + "accepted" + ChatColor.RESET + " the tracking request from " + ChatColor.GOLD +
+							players[0].getName() + ChatColor.RESET + "!");
 			registerUpdate(players[0], players[1]);
 		}
 	}
@@ -92,11 +91,11 @@ public class PlayerLocationService implements Listener {
 		if (requests.containsKey(token)) {
 			Player[] players = requests.remove(token);
 			players[0].sendMessage(
-					ChatColor.GOLD + players[1].getName() + ChatColor.RESET + " has " + ChatColor.RED + "rejected" +
-							ChatColor.RESET + " your tracking request!");
+					ChatColor.GOLD + players[1].getName() + ChatColor.RESET + " has " + ChatColor.RED + "rejected" + ChatColor.RESET +
+							" your tracking request!");
 			players[1].sendMessage(
-					"You have " + ChatColor.RED + "rejected" + ChatColor.RESET + " the tracking request from " +
-							ChatColor.GOLD + players[0].getName() + ChatColor.RESET + "!");
+					"You have " + ChatColor.RED + "rejected" + ChatColor.RESET + " the tracking request from " + ChatColor.GOLD +
+							players[0].getName() + ChatColor.RESET + "!");
 		}
 	}
 	
@@ -106,11 +105,11 @@ public class PlayerLocationService implements Listener {
 		
 		if (requests.containsKey(token)) {
 			Player[] players = requests.remove(token);
-			players[0].sendMessage(ChatColor.GOLD + players[1].getName() + ChatColor.RED +
-					" did not respond to your tracking request in time!");
+			players[0].sendMessage(
+					ChatColor.GOLD + players[1].getName() + ChatColor.RED + " did not respond to your tracking request in time!");
 			players[1].sendMessage(
-					ChatColor.RED + "You did not respond to the tracking request from " + ChatColor.GOLD +
-							players[0].getName() + ChatColor.RED + " in time!");
+					ChatColor.RED + "You did not respond to the tracking request from " + ChatColor.GOLD + players[0].getName() +
+							ChatColor.RED + " in time!");
 		}
 	}
 }
